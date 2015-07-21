@@ -25,77 +25,27 @@ namespace AGL
         {
             InitializeComponent();
         }
-
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xlsx";
-            dlg.Filter = "Excel file (.xlsx)|*.xlsx";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-            }
+            PasserelleA.loadBesoins_Click(sender, e);
 
         }
 
         private void loadMCD_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "XML file (.xml)|*.xml";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-            }
+            PasserelleA.loadMCD_Click(sender, e);
         }
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xmi";
-            dlg.Filter = "XMI file (.xmi)|*.xmi";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-            }
+            PasserelleA.loadUseCase_Click(sender, e);
         }
 
         private void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            DialogResult result = dialog.ShowDialog();
-
-            WordDocumentWriter.CreateSTB(dialog.SelectedPath);
-
-            System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + dialog.SelectedPath);
+            PasserelleA.validatePasserelleA_Click(sender, e);
         }
+        
 
     }
 }
