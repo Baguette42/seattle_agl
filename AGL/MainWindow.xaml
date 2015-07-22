@@ -9,10 +9,22 @@
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleA"  Content="Valider"  Margin="5" Click="validatePasserelleA_Click" DockPanel.Dock="Bottom" />
                     </DockPanel>
-                    <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
-                        <Button Name="loadBesoinsButton"  Content="Charger besoins (.xlsx)"  Margin="5" Click="loadBesoins_Click"/>
-                        <Button Name="loadMCDButton"  Content="Charger MCD (.xml)"  Margin="5" Click="loadMCD_Click"/>
-                        <Button Name="loadUseCaseButton"  Content="Charger les uses cases (.xml)" Margin="5" Click="loadUseCase_Click"/>
+                    <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
+                        <Button Name="loadBesoinsButton"  Content="Charger besoins (.xlsx)"  HorizontalAlignment="Left" Margin="5" Click="loadBesoins_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="Besoins :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="besoinsFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
+                        <Button Name="loadMCDButton"  Content="Charger MCD (.xml)" HorizontalAlignment="Left" Margin="5" Click="loadMCD_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="MCD :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="mcdFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
+                        <Button Name="loadUseCaseButton"  Content="Charger les uses cases (.xmi)" HorizontalAlignment="Left" Margin="5" Click="loadUseCase_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="Use cases :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="usecaseFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
                     </DockPanel>
                 </DockPanel>
             </TabItem>

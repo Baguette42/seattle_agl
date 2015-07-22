@@ -1,0 +1,19 @@
+﻿<Window x:Class="AGL.LoadProject"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Selectionner ou créer un projet" Height="200" Width="300">
+    <Grid>
+        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+            <Label Content="Selectionnez le dossier racine du projet existant ou &#x0a;à créer" HorizontalAlignment="Left" Margin="5" DockPanel.Dock="Top" Width="280" />
+            <Button Name="loadProjectFolderButton"  Content="Selectionner le dossier du projet" HorizontalAlignment="Left" Margin="5" Click="loadProjectFolder_Click" DockPanel.Dock="Top" Width="200"/>
+        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+            <Label Content="Dossier :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+            <Label Name="folderPath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+        </DockPanel>
+            <DockPanel LastChildFill="False" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="0,20,0,0" >
+                <Button Name="validateProjectFolder"  Content="Valider"  Margin="5" Click="validateProjectFolder_Click" DockPanel.Dock="Bottom" Width="70" IsEnabled="False"/>
+            </DockPanel>
+        </DockPanel>
+
+    </Grid>
+</Window>

@@ -27,18 +27,31 @@ namespace AGL
         }
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
         {
-            PasserelleA.loadBesoins_Click(sender, e);
+            //returns the selected file's path (null value if no file was selected)
+            string resultPath = PasserelleA.loadBesoins_Click(sender, e);
+            //if a file was selected, we update the label with it's path
+            if (resultPath != null)
+                besoinsFilePath.Content = resultPath;
 
         }
 
         private void loadMCD_Click(object sender, RoutedEventArgs e)
         {
-            PasserelleA.loadMCD_Click(sender, e);
+            //returns the selected file's path (null value if no file was selected)
+            string resultPath = PasserelleA.loadMCD_Click(sender, e);
+            //if a file was selected, we update the label with it's path
+            if (resultPath != null)
+                mcdFilePath.Content = resultPath;
+
         }
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
-            PasserelleA.loadUseCase_Click(sender, e);
+            //returns the selected file's path (null value if no file was selected)
+            string resultPath = PasserelleA.loadUseCase_Click(sender, e);
+            //if a file was selected, we update the label with it's path
+            if (resultPath != null)
+                usecaseFilePath.Content = resultPath;
         }
 
         private void validatePasserelleA_Click(object sender, RoutedEventArgs e)

@@ -18,7 +18,7 @@ namespace AGL
 {
     public static class PasserelleA
     {
-        public static void loadBesoins_Click(object sender, RoutedEventArgs e)
+        public static string loadBesoins_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -35,11 +35,13 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                return filename;
+            } else {
+                return null;
             }
-
         }
 
-        public static void loadMCD_Click(object sender, RoutedEventArgs e)
+        public static string loadMCD_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -56,10 +58,13 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                return filename;
+            } else {
+                return null;
             }
         }
 
-        public static void loadUseCase_Click(object sender, RoutedEventArgs e)
+        public static string loadUseCase_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -76,6 +81,9 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                return filename;
+            } else {
+                return null;
             }
         }
 
@@ -84,9 +92,16 @@ namespace AGL
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
 
-            WordDocumentWriter.CreateSTB(dialog.SelectedPath);
+            if (result == DialogResult.OK)
+            {
+                WordDocumentWriter.CreateSTB(dialog.SelectedPath);
+                System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + dialog.SelectedPath);
+            } else {
+                System.Windows.Forms.MessageBox.Show("Aucun dossier selectionné, pas de traitement effectué");
+            }
+                
 
-            System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + dialog.SelectedPath);
+            
         }
     }
 }
