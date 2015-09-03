@@ -41,11 +41,11 @@ namespace AGL
                     headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
                     headerRange.Font.Size = 10;
-                    headerRange.Text = "Header text goes here";
+                    headerRange.Text = "Spécification Technique du Besoin";
                 }
 
                 //Add the footers into the document
-                foreach (Section wordSection in document.Sections)
+                /*foreach (Section wordSection in document.Sections)
                 {
                     //Get the footer range and add the footer details.
                     Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
@@ -53,25 +53,152 @@ namespace AGL
                     footerRange.Font.Size = 10;
                     footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
                     footerRange.Text = "Footer text goes here";
-                }
+                }*/
 
                 //adding text to document
-                document.Content.SetRange(0, 0);
-                document.Content.Text = "This is test document " + Environment.NewLine;
+                //document.Content.SetRange(0, 0);
+                //document.Content.Text = "This is test document " + Environment.NewLine;
 
-                //Add paragraph with Heading 1 style
-                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
                 object styleHeading1 = "Titre 1";
-                para1.Range.set_Style(ref styleHeading1);
-                para1.Range.Text = "Para 1 text";
-                para1.Range.InsertParagraphAfter();
+                object styleHeading2 = "Titre 2";
+
+
+
+                /*
+                 * INTRODUCTION 
+                 */
+                //Add Introduction paragraph with Heading 1 style
+                Microsoft.Office.Interop.Word.Paragraph intro = document.Content.Paragraphs.Add(ref missing);
+                intro.Range.set_Style(ref styleHeading1);
+                intro.Range.Text = "Introduction";
+                intro.Range.InsertParagraphAfter();
 
                 //Add paragraph with Heading 2 style
                 Microsoft.Office.Interop.Word.Paragraph para2 = document.Content.Paragraphs.Add(ref missing);
-                object styleHeading2 = "Titre 2";
                 para2.Range.set_Style(ref styleHeading2);
-                para2.Range.Text = "Para 2 text";
+                para2.Range.Text = "Objet et objectifs du document";
                 para2.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph para3 = document.Content.Paragraphs.Add(ref missing);
+                para3.Range.set_Style(ref styleHeading2);
+                para3.Range.Text = "Domaine d'application";
+                para3.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph termi = document.Content.Paragraphs.Add(ref missing);
+                termi.Range.set_Style(ref styleHeading2);
+                termi.Range.Text = "Terminologie";
+                termi.Range.InsertParagraphAfter();
+                
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph docs_ref = document.Content.Paragraphs.Add(ref missing);
+                docs_ref.Range.set_Style(ref styleHeading2);
+                docs_ref.Range.Text = "Documents référencés";
+                docs_ref.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph pres_doc = document.Content.Paragraphs.Add(ref missing);
+                pres_doc.Range.set_Style(ref styleHeading2);
+                pres_doc.Range.Text = "Présentation du document";
+                pres_doc.Range.InsertParagraphAfter();
+
+                /*
+                 * DESCRIPTION GENERALE 
+                 */
+                //Add Introduction paragraph with Heading 1 style
+                Microsoft.Office.Interop.Word.Paragraph desc_gen = document.Content.Paragraphs.Add(ref missing);
+                desc_gen.Range.set_Style(ref styleHeading1);
+                desc_gen.Range.Text = "Description générale";
+                desc_gen.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph apercu = document.Content.Paragraphs.Add(ref missing);
+                apercu.Range.set_Style(ref styleHeading2);
+                apercu.Range.Text = "Aperçu général du logiciel";
+                apercu.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph func_prod = document.Content.Paragraphs.Add(ref missing);
+                func_prod.Range.set_Style(ref styleHeading2);
+                func_prod.Range.Text = "Fonctionnalités du produit";
+                func_prod.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph carac_user = document.Content.Paragraphs.Add(ref missing);
+                carac_user.Range.set_Style(ref styleHeading2);
+                carac_user.Range.Text = "Caractéristiques des utilisateurs";
+                carac_user.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph contr = document.Content.Paragraphs.Add(ref missing);
+                contr.Range.set_Style(ref styleHeading2);
+                contr.Range.Text = "Contraintes";
+                contr.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph hypo = document.Content.Paragraphs.Add(ref missing);
+                hypo.Range.set_Style(ref styleHeading2);
+                hypo.Range.Text = "Hypothèses et traçabilité";
+                hypo.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph exi = document.Content.Paragraphs.Add(ref missing);
+                exi.Range.set_Style(ref styleHeading2);
+                exi.Range.Text = "Exigences et contraintes différées";
+                exi.Range.InsertParagraphAfter();
+
+                /*
+                * SPECIFICATION DETAILLEE
+                */
+                //Add Introduction paragraph with Heading 1 style
+                Microsoft.Office.Interop.Word.Paragraph para1 = document.Content.Paragraphs.Add(ref missing);
+                para1.Range.set_Style(ref styleHeading1);
+                para1.Range.Text = "Spécification détaillée";
+                para1.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph inter_ex = document.Content.Paragraphs.Add(ref missing);
+                inter_ex.Range.set_Style(ref styleHeading2);
+                inter_ex.Range.Text = "Interfaces externes";
+                inter_ex.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph desc_func = document.Content.Paragraphs.Add(ref missing);
+                desc_func.Range.set_Style(ref styleHeading2);
+                desc_func.Range.Text = "Description des fonctions";
+                desc_func.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph ex_perfs= document.Content.Paragraphs.Add(ref missing);
+                ex_perfs.Range.set_Style(ref styleHeading2);
+                ex_perfs.Range.Text = "Exigences de performance";
+                ex_perfs.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph descr_donnees = document.Content.Paragraphs.Add(ref missing);
+                descr_donnees.Range.set_Style(ref styleHeading2);
+                descr_donnees.Range.Text = "Description des données";
+                descr_donnees.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph contraintes_env = document.Content.Paragraphs.Add(ref missing);
+                contraintes_env.Range.set_Style(ref styleHeading2);
+                contraintes_env.Range.Text = "Contraintes d'environnement de développement";
+                contraintes_env.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph exi_qual = document.Content.Paragraphs.Add(ref missing);
+                exi_qual.Range.set_Style(ref styleHeading2);
+                exi_qual.Range.Text = "Exigences qualité";
+                exi_qual.Range.InsertParagraphAfter();
+
+                //Add paragraph with Heading 2 style
+                Microsoft.Office.Interop.Word.Paragraph exi_compl = document.Content.Paragraphs.Add(ref missing);
+                exi_compl.Range.set_Style(ref styleHeading2);
+                exi_compl.Range.Text = "Exigences complémentaires";
+                exi_compl.Range.InsertParagraphAfter();
+                /*
 
                 //Create a 5X5 table and insert some dummy record
                 Microsoft.Office.Interop.Word.Table firstTable = document.Tables.Add(para1.Range, 5, 5, ref missing, ref missing);
@@ -103,6 +230,7 @@ namespace AGL
                         }
                     }
                 }
+                */
 
                 //Save the document
                 object filename = @"";
