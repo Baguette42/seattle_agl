@@ -24,8 +24,8 @@ namespace AGL
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xlsx";
-            dlg.Filter = "Excel file (.xlsx)|*.xlsx";
+            //dlg.DefaultExt = ".xlsx";
+            //dlg.Filter = "Excel file (.xlsx)|*.xlsx";
 
             // Display OpenFileDialog by calling ShowDialog method
             Nullable<bool> result = dlg.ShowDialog();
