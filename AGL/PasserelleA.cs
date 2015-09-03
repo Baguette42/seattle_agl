@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                excelToJson(filename);
                 return filename;
             } else {
                 return null;
@@ -100,8 +102,55 @@ namespace AGL
                 System.Windows.Forms.MessageBox.Show("Aucun dossier selectionné, pas de traitement effectué");
             }
                 
+        }
 
-            
+        public static void excelToJson(String filename)
+        {
+            StreamReader sreader = File.OpenText(filename);
+            String path = filename.Substring(0, filename.LastIndexOf('\\'));
+            String fileWrite = path + "\\besoin.json";
+            StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
+            // Parse le header
+            String line = sreader.ReadLine();
+            /*if (null != line)
+            {
+                swriter.Write("[");
+                String buffer = "";
+                for (int i = 0; i < line.Split(',').Length; ++i)
+                {
+                    buffer += (line.Split(',')[i] + ";");
+                }
+                //Suppression du dernier caractère ; en trop
+                buffer = buffer.Substring(0, buffer.Length - 1);
+                buffer += "\":[";
+                swriter.Write(buffer);
+            }
+            else
+            {
+                return;
+            }*/
+            // Parse le contenu
+            swriter.Write("[");
+            String buffer = "";
+            while ((line = sreader.ReadLine()) != null)
+            {
+                buffer += "[";
+                for (int i = 0; i < line.Split(',').Length; ++i)
+                {
+                    buffer += "\"" + line.Split(',')[i] + "\",";
+                }
+                // Suppression du ; en trop
+                buffer = buffer.Substring(0, buffer.Length - 1);
+                buffer += "],";
+                //swriter.Write(buffer);
+            }
+            buffer = buffer.Substring(0, buffer.Length - 1);
+            swriter.Write(buffer);
+            swriter.Write("]");
+            swriter.Flush();
+
+            sreader.Close();
+            swriter.Close();
         }
     }
 }
