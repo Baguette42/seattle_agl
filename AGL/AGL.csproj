@@ -62,6 +62,7 @@
       <DependentUpon>LoadProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="PasserelleA.cs" />
+    <Compile Include="PasserelleB.cs" />
     <Compile Include="WordDocumentWriter.cs" />
     <Page Include="LoadProject.xaml">
       <SubType>Designer</SubType>

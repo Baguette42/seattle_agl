@@ -45,6 +45,22 @@ namespace AGL
 
         }
 
+        private void loadXMI_Click(object sender, RoutedEventArgs e)
+        {
+            //returns the selected file's path (null value if no file was selected)
+            string resultPath = PasserelleB.loadXMI_Click(sender, e);
+            //if a file was selected, we update the label with it's path
+            if (resultPath != null)
+                xmiFilePath.Content = resultPath;
+        }
+
+        private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            DialogResult result = dialog.ShowDialog();
+            generatedJavaFilePath.Content = dialog.SelectedPath;
+        }
+
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
             //returns the selected file's path (null value if no file was selected)
@@ -57,6 +73,11 @@ namespace AGL
         private void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
             PasserelleA.validatePasserelleA_Click(sender, e);
+        }
+
+        private void validatePasserelleB_Click(object sender, RoutedEventArgs e)
+        {
+            PasserelleB.validatePasserelleB_Click(sender, e);
         }
         
 

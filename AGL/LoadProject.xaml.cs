@@ -32,14 +32,12 @@ namespace AGL
         {
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
-            
-            if (true)
-            {
-                folderPath.Content = dialog.SelectedPath;
-                folderSelected = true;
-                // if a folder is selected, validation button is enabled
-                validateProjectFolder.IsEnabled = true;
-            }
+
+            folderPath.Content = dialog.SelectedPath;
+            folderSelected = true;
+            // if a folder is selected, validation button is enabled
+            validateProjectFolder.IsEnabled = true;
+    
         }
 
         private void validateProjectFolder_Click(object sender, RoutedEventArgs e)

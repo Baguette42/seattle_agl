@@ -29,6 +29,24 @@
                 </DockPanel>
             </TabItem>
             <TabItem Header="Passerelle B" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+                <DockPanel>
+                    <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
+                        <Button Name="validatePasserelleB"  Content="Valider"  Margin="5" Click="validatePasserelleB_Click" DockPanel.Dock="Bottom" />
+                    </DockPanel>
+                    <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
+                        <Button Name="loadGeneratedJavaButton"  Content="Selectionner dossier du code Java"  HorizontalAlignment="Left" Margin="5" Click="loadgeneratedJava_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="Java généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="generatedJavaFilePath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
+                        <Button Name="loadGeneratedXMIButton"  Content="Charger fichier .xmi" HorizontalAlignment="Left" Margin="5" Click="loadXMI_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="XMI généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="xmiFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
+                       
+                    </DockPanel>
+                </DockPanel>
 
             </TabItem>
             <TabItem Header="Passerelle C" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
