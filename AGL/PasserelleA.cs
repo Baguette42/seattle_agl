@@ -162,8 +162,6 @@ namespace AGL
                 // Suppression du caractère , en trop
                 buffer = buffer.Substring(0, buffer.Length - 1);
                 buffer += "],";
-
-                //System.Console.Write(node.Attributes["name"].Value);
             }
             buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
