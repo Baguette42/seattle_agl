@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace AGL
 {
@@ -60,6 +61,7 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                mcdToJson(filename);
                 return filename;
             } else {
                 return null;
@@ -134,6 +136,39 @@ namespace AGL
             swriter.Flush();
 
             sreader.Close();
+            swriter.Close();
+        }
+
+        public static void mcdToJson(String filename)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+            String path = filename.Substring(0, filename.LastIndexOf('\\'));
+            String fileWrite = path + "\\mcd.json";
+            StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("//entite");
+
+            swriter.Write("[");
+            String buffer = "";
+            foreach (XmlNode node in nodes)
+            {
+                buffer += "[" + node.Attributes["name"].Value + ",";
+                XmlNodeList attributes = doc.DocumentElement.SelectNodes("//entite[@name='" + node.Attributes["name"].Value + "']/attribut");
+                foreach (XmlNode attribute in attributes)
+                {
+                    buffer += attribute.Attributes["name"].Value + ",";
+                }
+                // Suppression du caractère , en trop
+                buffer = buffer.Substring(0, buffer.Length - 1);
+                buffer += "],";
+
+                //System.Console.Write(node.Attributes["name"].Value);
+            }
+            buffer = buffer.Substring(0, buffer.Length - 1);
+            swriter.Write(buffer);
+            swriter.Write("]");
+            swriter.Flush();
             swriter.Close();
         }
     }
