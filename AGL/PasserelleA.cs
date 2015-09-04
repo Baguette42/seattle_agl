@@ -85,6 +85,7 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                useCaseToJson(filename);
                 return filename;
             } else {
                 return null;
@@ -162,6 +163,31 @@ namespace AGL
                 // Suppression du caractère , en trop
                 buffer = buffer.Substring(0, buffer.Length - 1);
                 buffer += "],";
+            }
+            buffer = buffer.Substring(0, buffer.Length - 1);
+            swriter.Write(buffer);
+            swriter.Write("]");
+            swriter.Flush();
+            swriter.Close();
+        }
+
+        public static void useCaseToJson(String filename)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+            String path = filename.Substring(0, filename.LastIndexOf('\\'));
+            String fileWrite = path + "\\usecase.json";
+            StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("//packagedElement");
+
+            swriter.Write("[");
+            String buffer = "";
+            foreach (XmlNode node in nodes)
+            {
+                XmlAttributeCollection attributes = node.Attributes;
+                if (node.Attributes["xmi:type"].Value.Equals("uml:UseCase"))
+                    buffer += node.Attributes["name"].Value + ",";
             }
             buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
