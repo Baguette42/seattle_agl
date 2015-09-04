@@ -112,23 +112,7 @@ namespace AGL
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
             // Parse le header
             String line = sreader.ReadLine();
-            /*if (null != line)
-            {
-                swriter.Write("[");
-                String buffer = "";
-                for (int i = 0; i < line.Split(',').Length; ++i)
-                {
-                    buffer += (line.Split(',')[i] + ";");
-                }
-                //Suppression du dernier caractère ; en trop
-                buffer = buffer.Substring(0, buffer.Length - 1);
-                buffer += "\":[";
-                swriter.Write(buffer);
-            }
-            else
-            {
-                return;
-            }*/
+
             // Parse le contenu
             swriter.Write("[");
             String buffer = "";
@@ -139,11 +123,11 @@ namespace AGL
                 {
                     buffer += "\"" + line.Split(',')[i] + "\",";
                 }
-                // Suppression du ; en trop
+                // Suppression du caractère , en trop
                 buffer = buffer.Substring(0, buffer.Length - 1);
                 buffer += "],";
-                //swriter.Write(buffer);
             }
+            // Suppression du caractère , en trop
             buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
             swriter.Write("]");
