@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
 
 namespace AGL
 {
@@ -41,10 +43,53 @@ namespace AGL
             }
         }
 
-
-        public static void validatePasserelleB_Click(object sender, RoutedEventArgs e)
+        public static void classesToJson(String filename)
         {
-           
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+            String path = filename.Substring(0, filename.LastIndexOf('\\'));
+            String fileWrite = path + "\\classes.json";
+            StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("//packagedElement");
+
+            swriter.Write("[");
+            String buffer = "";
+            foreach (XmlNode node in nodes)
+            {
+                XmlAttributeCollection attributes = node.Attributes;
+                if (node.Attributes["xmi:type"].Value.Equals("uml:Class")) {
+                    buffer += "[";
+                    buffer += node.Attributes["name"].Value;
+
+                    //ajout des attributs
+                    foreach (XmlNode attributeNode in node.ChildNodes) {
+                        if (attributeNode.Name.Equals("ownedAttribute")) {
+                            buffer += ", [";
+                            buffer += attributeNode.Attributes["name"].Value;
+                            buffer += "]";
+                        }
+                    }
+
+                    foreach (XmlNode methodNode in node.ChildNodes) {
+                        if (methodNode.Name.Equals("ownedOperation")) {
+                            buffer += ", [";
+                            buffer += methodNode.Attributes["name"].Value;
+                            buffer += "]";
+                        }
+                    }
+                    buffer += "],";
+                }
+            }
+            buffer = buffer.Substring(0, buffer.Length - 1);
+            swriter.Write(buffer);
+            swriter.Write("]");
+            swriter.Flush();
+            swriter.Close();
+        }
+        public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
+        {
+            classesToJson(xmiPath);
         }
     }
 }

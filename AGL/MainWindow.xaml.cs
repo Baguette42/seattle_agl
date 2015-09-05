@@ -52,7 +52,9 @@ namespace AGL
             //if a file was selected, we update the label with it's path
             if (resultPath != null)
                 xmiFilePath.Content = resultPath;
+
         }
+
 
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
@@ -77,7 +79,7 @@ namespace AGL
 
         private void validatePasserelleB_Click(object sender, RoutedEventArgs e)
         {
-            PasserelleB.validatePasserelleB_Click(sender, e);
+            PasserelleB.validatePasserelleB_Click(sender, e, xmiFilePath.Content.ToString());
         }
         
 
