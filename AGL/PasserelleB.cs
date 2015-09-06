@@ -65,17 +65,15 @@ namespace AGL
                     //ajout des attributs
                     foreach (XmlNode attributeNode in node.ChildNodes) {
                         if (attributeNode.Name.Equals("ownedAttribute")) {
-                            buffer += ", [";
+                            buffer += ", ";
                             buffer += attributeNode.Attributes["name"].Value;
-                            buffer += "]";
                         }
                     }
 
                     foreach (XmlNode methodNode in node.ChildNodes) {
                         if (methodNode.Name.Equals("ownedOperation")) {
-                            buffer += ", [";
+                            buffer += ", ";
                             buffer += methodNode.Attributes["name"].Value;
-                            buffer += "]";
                         }
                     }
                     buffer += "],";
