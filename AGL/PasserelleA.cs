@@ -65,7 +65,6 @@ namespace AGL
 
             Process modelio = Process.Start(LoadProject.modelioPath);
             modelio.WaitForExit();
-            
            /* // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
@@ -105,9 +104,15 @@ namespace AGL
 
         public static void excelToJson(String filename)
         {
+
             StreamReader sreader = File.OpenText(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
             String fileWrite = path + "\\besoin.json";
+
+            //if there is already a JSON, we delete it to avoid writing over it
+            if (File.Exists(fileWrite))
+                File.Delete(fileWrite);
+
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
             // Parse le header
             String line = sreader.ReadLine();
@@ -127,7 +132,8 @@ namespace AGL
                 buffer += "],";
             }
             // Suppression du caractère , en trop
-            buffer = buffer.Substring(0, buffer.Length - 1);
+            if (buffer.Length > 0)
+                buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
             swriter.Write("]");
             swriter.Flush();
@@ -144,6 +150,11 @@ namespace AGL
             doc.Load(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
             String fileWrite = path + "\\usecase.json";
+
+            //if there is already a JSON, we delete it to avoid writing over it
+            if (File.Exists(fileWrite))
+                File.Delete(fileWrite);
+
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("//packagedElement");

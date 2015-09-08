@@ -79,6 +79,11 @@ namespace AGL
             doc.Load(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
             String fileWrite = path + "\\mcd.json";
+
+            //if there is already a JSON, we delete it to avoid writing over it
+            if (File.Exists(fileWrite))
+                File.Delete(fileWrite);
+
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("//entite");
@@ -109,6 +114,11 @@ namespace AGL
             doc.Load(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
             String fileWrite = path + "\\classes.json";
+
+            //if there is already a JSON, we delete it to avoid writing over it
+            if (File.Exists(fileWrite))
+                File.Delete(fileWrite);
+
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
 
             XmlNodeList nodes = doc.DocumentElement.SelectNodes("//packagedElement");

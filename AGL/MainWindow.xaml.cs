@@ -88,6 +88,7 @@ namespace AGL
             {
                 besoinsPath = LoadProject.projectFolder + "\\besoins.csv";
                 besoinsFilePath.Content = besoinsPath;
+                PasserelleA.excelToJson(besoinsPath);
             }
         }
 
@@ -97,6 +98,7 @@ namespace AGL
             {
                 usecasePath = LoadProject.projectFolder + "\\usecase.xmi";
                 usecaseFilePath.Content = usecasePath;
+                PasserelleA.useCaseToJson(usecasePath);
             }
         }
 
@@ -106,6 +108,7 @@ namespace AGL
             {
                 mcdPath = LoadProject.projectFolder + "\\mcd.xml";
                 mcdFilePath.Content = mcdPath;
+                PasserelleB.mcdToJson(mcdPath);
             }
         }
 
@@ -115,6 +118,7 @@ namespace AGL
             {
                 classdiagramPath = LoadProject.projectFolder + "\\classdiagram.xmi";
                 xmiFilePath.Content = classdiagramPath;
+                PasserelleB.classesToJson(classdiagramPath);
             }
         }
 
