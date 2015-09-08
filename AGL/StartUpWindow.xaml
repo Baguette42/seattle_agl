@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="StartUpWindow" Height="110" Width="200">
     <Grid>
-        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
-            <Label Content="Créer un nouveau projet?" HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Top" Width="180" />
-            <DockPanel LastChildFill="False" VerticalAlignment="Center" DockPanel.Dock="Bottom" Margin="0,0,0,0" >
+        <DockPanel LastChildFill="False" DockPanel.Dock="Top" HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Label Content="Créer un nouveau projet?" HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Top" VerticalAlignment="Center" />
+            <DockPanel LastChildFill="False" VerticalAlignment="Center" DockPanel.Dock="Bottom" Margin="0,0,0,0" HorizontalAlignment="Center" >
                 <Button Name="createNewProjetButton"  Content="Oui"  Margin="5" Click="yes_Click" DockPanel.Dock="Left" Width="70" VerticalAlignment="Center"/>
                 <Button Name="NoButton"  Content="Non"  Margin="5" Click="no_Click" DockPanel.Dock="Left" Width="70"  VerticalAlignment="Center"/>
 

@@ -4,43 +4,41 @@
         Title="AGL Seattle" Height="350" Width="525">
     <Grid>
         <TabControl Margin="0">
-            <TabItem Header="Passerelle A" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+            <TabItem Header="Spécifications" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
                 <DockPanel>
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleA"  Content="Valider"  Margin="5" Click="validatePasserelleA_Click" DockPanel.Dock="Bottom" />
                     </DockPanel>
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
-                        <Button Name="loadBesoinsButton"  Content="Charger besoins (.xlsx)"  HorizontalAlignment="Left" Margin="5" Click="loadBesoins_Click" DockPanel.Dock="Top" Width="200"/>
+                        <Button Name="loadBesoinsButton"  Content="Créer / modifier exigences (.csv)"  HorizontalAlignment="Left" Margin="5" Click="loadBesoins_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="Besoins :" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                            <Label Name="besoinsFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="besoinsFilePath" Content="Aucun fichier trouvé" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
-                        <Button Name="loadMCDButton"  Content="Charger MCD (.xml)" HorizontalAlignment="Left" Margin="5" Click="loadMCD_Click" DockPanel.Dock="Top" Width="200"/>
-                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
-                            <Label Content="MCD :" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                            <Label Name="mcdFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                        </DockPanel>
-                        <Button Name="loadUseCaseButton"  Content="Charger les uses cases (.xmi)" HorizontalAlignment="Left" Margin="5" Click="loadUseCase_Click" DockPanel.Dock="Top" Width="200"/>
+                       
+                        <Button Name="loadUseCaseButton"  Content="Créer / modifier les uses cases (.xmi)" HorizontalAlignment="Left" Margin="5" Click="loadUseCase_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="Use cases :" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                            <Label Name="usecaseFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="usecaseFilePath" Content="Aucun fichier trouvé" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
                         <Button Content="Button" Width="75" Click="Button_Click"/>
                     </DockPanel>
                 </DockPanel>
             </TabItem>
-            <TabItem Header="Passerelle B" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+            <TabItem Header="Conception" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
                 <DockPanel>
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleB"  Content="Valider"  Margin="5" Click="validatePasserelleB_Click" DockPanel.Dock="Bottom" />
                     </DockPanel>
+                    
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
-                        <Button Name="loadGeneratedJavaButton"  Content="Selectionner dossier du code Java"  HorizontalAlignment="Left" Margin="5" Click="loadgeneratedJava_Click" DockPanel.Dock="Top" Width="200"/>
+                        <Button Name="loadMCDButton"  Content="Charger MCD (.xml)" HorizontalAlignment="Left" Margin="5" Click="loadMCD_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
-                            <Label Content="Java généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                            <Label Name="generatedJavaFilePath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Content="MCD :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="mcdFilePath" Content="Aucun fichier trouvé" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
-                        <Button Name="loadGeneratedXMIButton"  Content="Charger fichier .xmi" HorizontalAlignment="Left" Margin="5" Click="loadXMI_Click" DockPanel.Dock="Top" Width="200"/>
+
+                        <Button Name="loadGeneratedXMIButton"  Content="Charger diagramme de classe" HorizontalAlignment="Left" Margin="5" Click="loadXMI_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="XMI généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="xmiFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
@@ -50,11 +48,23 @@
                 </DockPanel>
 
             </TabItem>
-            <TabItem Header="Passerelle C" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+            <TabItem Header="Réalisation" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+                <DockPanel>
+                    <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
+                        <Button Name="validatePasserelleC"  Content="Valider"  Margin="5" Click="validatePasserelleB_Click" DockPanel.Dock="Bottom" />
+                    </DockPanel>
+
+                    <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
+                        <Button Name="loadGeneratedJavaButton"  Content="Selectionner dossier du code Java"  HorizontalAlignment="Left" Margin="5" Click="loadgeneratedJava_Click" DockPanel.Dock="Top" Width="200"/>
+                        <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
+                            <Label Content="Java généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                            <Label Name="generatedJavaFilePath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        </DockPanel>
+                    </DockPanel>
+                </DockPanel>
 
             </TabItem>
-            <TabItem Header="Passerelle D" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
-
+            <TabItem Header="Tests" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
             </TabItem>
         </TabControl>
         <Popup Name="STB_valid_popup"  VerticalOffset="20"  PlacementRectangle="300,140,100,150" PopupAnimation="Fade"  AllowsTransparency="True" Margin="300,100,100,10" Placement="Mouse"  IsOpen="False">

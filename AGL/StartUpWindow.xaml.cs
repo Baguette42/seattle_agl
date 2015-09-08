@@ -27,8 +27,7 @@ namespace AGL
 
         private void yes_Click(object sender, RoutedEventArgs e)
         {
-            string netbeansPath = "C:\\Program Files\\NetBeans 8.0.2\\bin\\netbeans.exe";
-            Process createProjectProcess = Process.Start(netbeansPath);
+            Process createProjectProcess = Process.Start(LoadProject.netbeansPath);
             createProjectProcess.WaitForExit();
 
             LoadProject loadProjectWindow = new LoadProject();

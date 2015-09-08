@@ -21,8 +21,20 @@ namespace AGL
 {
     public static class PasserelleA
     {
-        public static string loadBesoins_Click(object sender, RoutedEventArgs e)
+        public static void loadBesoins_Click(object sender, RoutedEventArgs e, string besoinsPath)
         {
+            if (besoinsPath != null)
+            {
+                Process excel = Process.Start(besoinsPath);
+                excel.WaitForExit();
+            } else {
+                StreamWriter sw = new StreamWriter(File.OpenWrite(LoadProject.projectFolder + "\\besoins.csv"));
+                sw.Close();
+                Process excel = Process.Start(LoadProject.projectFolder + "\\besoins.csv");
+                excel.WaitForExit();
+            }
+
+            /*
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
@@ -43,7 +55,7 @@ namespace AGL
                 return filename;
             } else {
                 return null;
-            }
+            }*/
         }
 
         public static string loadMCD_Click(object sender, RoutedEventArgs e)
@@ -70,9 +82,13 @@ namespace AGL
             }
         }
 
-        public static string loadUseCase_Click(object sender, RoutedEventArgs e)
+        public static void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
+
+            Process modelio = Process.Start(LoadProject.modelioPath);
+            modelio.WaitForExit();
+            
+           /* // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Set filter for file extension and default file extension
@@ -91,7 +107,7 @@ namespace AGL
                 return filename;
             } else {
                 return null;
-            }
+            }*/
         }
 
         public static void validatePasserelleA_Click(object sender, RoutedEventArgs e)

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace AGL
 {
@@ -22,18 +23,19 @@ namespace AGL
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string besoinsPath = null;
+        private string usecasePath = null;
+
         public MainWindow()
         {
             InitializeComponent();
+            checkBesoinsFile();
+            checkUsecaseFile();
         }
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
         {
-            //returns the selected file's path (null value if no file was selected)
-            string resultPath = PasserelleA.loadBesoins_Click(sender, e);
-            //if a file was selected, we update the label with it's path
-            if (resultPath != null)
-                besoinsFilePath.Content = resultPath;
-
+            PasserelleA.loadBesoins_Click(sender, e, besoinsPath);
+            checkBesoinsFile();
         }
 
         private void loadMCD_Click(object sender, RoutedEventArgs e)
@@ -66,11 +68,8 @@ namespace AGL
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
-            //returns the selected file's path (null value if no file was selected)
-            string resultPath = PasserelleA.loadUseCase_Click(sender, e);
-            //if a file was selected, we update the label with it's path
-            if (resultPath != null)
-                usecaseFilePath.Content = resultPath;
+            PasserelleA.loadUseCase_Click(sender, e);
+            checkUsecaseFile();
         }
 
         private void validatePasserelleA_Click(object sender, RoutedEventArgs e)
@@ -87,7 +86,24 @@ namespace AGL
         {
             Process notepad = Process.Start("C:\\Dev\\Tool\\Modelio 3.3\\modelio.exe");
         }
-        
+
+        private void checkBesoinsFile()
+        {
+            if (File.Exists(LoadProject.projectFolder + "\\besoins.csv"))
+            {
+                besoinsPath = LoadProject.projectFolder + "\\besoins.csv";
+                besoinsFilePath.Content = besoinsPath;
+            }
+        }
+
+        private void checkUsecaseFile()
+        {
+            if (File.Exists(LoadProject.projectFolder + "\\usecase.xmi"))
+            {
+                usecasePath = LoadProject.projectFolder + "\\usecase.xmi";
+                usecaseFilePath.Content = usecasePath;
+            }
+        }
 
     }
 }
