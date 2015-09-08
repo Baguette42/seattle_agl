@@ -25,13 +25,17 @@ namespace AGL
     {
         private string besoinsPath = null;
         private string usecasePath = null;
+        private string mcdPath = null;
+        private string classdiagramPath = null;
 
         public MainWindow()
         {
             InitializeComponent();
             checkBesoinsFile();
             checkUsecaseFile();
+            checkClassDiagramFile();
         }
+
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
         {
             PasserelleA.loadBesoins_Click(sender, e, besoinsPath);
@@ -40,21 +44,15 @@ namespace AGL
 
         private void loadMCD_Click(object sender, RoutedEventArgs e)
         {
-            //returns the selected file's path (null value if no file was selected)
-            string resultPath = PasserelleA.loadMCD_Click(sender, e);
-            //if a file was selected, we update the label with it's path
-            if (resultPath != null)
-                mcdFilePath.Content = resultPath;
-
+            PasserelleB.loadMCD_Click(sender, e);
+            checkMCDFile();
         }
 
         private void loadXMI_Click(object sender, RoutedEventArgs e)
         {
             //returns the selected file's path (null value if no file was selected)
-            string resultPath = PasserelleB.loadXMI_Click(sender, e);
-            //if a file was selected, we update the label with it's path
-            if (resultPath != null)
-                xmiFilePath.Content = resultPath;
+            PasserelleB.loadXMI_Click(sender, e);
+            checkClassDiagramFile();
 
         }
 
@@ -82,10 +80,6 @@ namespace AGL
             PasserelleB.validatePasserelleB_Click(sender, e, xmiFilePath.Content.ToString());
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Process notepad = Process.Start("C:\\Dev\\Tool\\Modelio 3.3\\modelio.exe");
-        }
 
         private void checkBesoinsFile()
         {
@@ -102,6 +96,24 @@ namespace AGL
             {
                 usecasePath = LoadProject.projectFolder + "\\usecase.xmi";
                 usecaseFilePath.Content = usecasePath;
+            }
+        }
+
+        private void checkMCDFile()
+        {
+            if (File.Exists(LoadProject.projectFolder + "\\mcd.xml"))
+            {
+                mcdPath = LoadProject.projectFolder + "\\mcd.xml";
+                mcdFilePath.Content = mcdPath;
+            }
+        }
+
+        private void checkClassDiagramFile()
+        {
+            if (File.Exists(LoadProject.projectFolder + "\\classdiagram.xmi"))
+            {
+                classdiagramPath = LoadProject.projectFolder + "\\classdiagram.xmi";
+                xmiFilePath.Content = classdiagramPath;
             }
         }
 

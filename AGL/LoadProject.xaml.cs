@@ -24,7 +24,7 @@ namespace AGL
         public static string projectFolder = "";
         public static string modelioPath = "C:\\Users\\Guillaume\\Downloads\\modelio-open-201502191121-win32.win32.x86_64\\Modelio 3.3\\modelio.exe";
         public static string netbeansPath = "C:\\Program Files\\NetBeans 8.0.2\\bin\\netbeans.exe";
-
+        public static string jmerisePath = "";
 
         private bool folderSelected = false;
 

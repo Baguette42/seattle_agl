@@ -15,14 +15,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using System.Diagnostics;
 
 namespace AGL
 {
     public static class PasserelleB
     {
-        public static string loadXMI_Click(object sender, RoutedEventArgs e)
+        public static void loadXMI_Click(object sender, RoutedEventArgs e)
         {
-            // Create OpenFileDialog
+            Process modelio = Process.Start(LoadProject.modelioPath);
+            modelio.WaitForExit();
+           /* // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
             // Set filter for file extension and default file extension
@@ -40,9 +43,66 @@ namespace AGL
                 return filename;
             } else {
                 return null;
-            }
+            }*/
         }
+        public static void loadMCD_Click(object sender, RoutedEventArgs e)
+        {
+            Process jmerise = Process.Start(LoadProject.jmerisePath);
+            jmerise.WaitForExit();
+            /*
+            // Create OpenFileDialog
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
+            // Set filter for file extension and default file extension
+            dlg.DefaultExt = ".xml";
+            dlg.Filter = "XML file (.xml)|*.xml";
+
+            // Display OpenFileDialog by calling ShowDialog method
+            Nullable<bool> result = dlg.ShowDialog();
+
+            // Get the selected file name and display in a TextBox
+            if (result == true)
+            {
+                // Open document
+                string filename = dlg.FileName;
+                mcdToJson(filename);
+                return filename;
+            }
+            else
+            {
+                return null;
+            }*/
+        }
+        public static void mcdToJson(String filename)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load(filename);
+            String path = filename.Substring(0, filename.LastIndexOf('\\'));
+            String fileWrite = path + "\\mcd.json";
+            StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
+
+            XmlNodeList nodes = doc.DocumentElement.SelectNodes("//entite");
+
+            swriter.Write("[");
+            String buffer = "";
+            foreach (XmlNode node in nodes)
+            {
+                buffer += "[\"" + node.Attributes["name"].Value + "\",";
+                XmlNodeList attributes = doc.DocumentElement.SelectNodes("//entite[@name='" + node.Attributes["name"].Value + "']/attribut");
+                foreach (XmlNode attribute in attributes)
+                {
+                    buffer += "\"" + attribute.Attributes["name"].Value + "\",";
+                }
+                // Suppression du caractère , en trop
+                buffer = buffer.Substring(0, buffer.Length - 1);
+                buffer += "],";
+            }
+            buffer = buffer.Substring(0, buffer.Length - 1);
+            swriter.Write(buffer);
+            swriter.Write("]");
+            swriter.Flush();
+            swriter.Close();
+        }
         public static void classesToJson(String filename)
         {
             XmlDocument doc = new XmlDocument();
