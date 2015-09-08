@@ -21,6 +21,8 @@
                             <Label Content="Use cases :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="usecaseFilePath" Content="Aucun fichier trouvé" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
+                        <Button Name="genereteSTBtemplateButton"  Content="Générer template STB" HorizontalAlignment="Left" Margin="5" Click="generateSTB_Click" DockPanel.Dock="Top" Width="200"/>
+
                     </DockPanel>
                 </DockPanel>
             </TabItem>

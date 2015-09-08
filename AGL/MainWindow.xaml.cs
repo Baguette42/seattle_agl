@@ -58,7 +58,10 @@ namespace AGL
 
         }
 
-
+        private void generateSTB_Click(object sender, RoutedEventArgs e)
+        {
+            PasserelleA.generateSTB();
+        }
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
             PasserelleC.loadJava_Click(sender, e);
@@ -121,6 +124,8 @@ namespace AGL
                 PasserelleB.classesToJson(classdiagramPath);
             }
         }
+
+        
 
     }
 }

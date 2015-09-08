@@ -89,7 +89,7 @@ namespace AGL
 
         public static void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
+            /*var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
 
             if (result == DialogResult.OK)
@@ -98,9 +98,16 @@ namespace AGL
                 System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + dialog.SelectedPath);
             } else {
                 System.Windows.Forms.MessageBox.Show("Aucun dossier selectionné, pas de traitement effectué");
-            }
+            }*/
                 
         }
+        public static void generateSTB()
+        {
+            WordDocumentWriter.CreateSTB(LoadProject.projectFolder);
+            System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + LoadProject.projectFolder);
+
+        }
+
 
         public static void excelToJson(String filename)
         {
