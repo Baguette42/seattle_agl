@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,6 +38,7 @@ namespace AGL
             {
                 // Open document
                 string filename = dlg.FileName;
+                Process excel = Process.Start(filename);
                 excelToJson(filename);
                 return filename;
             } else {

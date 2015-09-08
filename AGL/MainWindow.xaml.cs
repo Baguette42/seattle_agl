@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AGL
 {
@@ -80,6 +81,11 @@ namespace AGL
         private void validatePasserelleB_Click(object sender, RoutedEventArgs e)
         {
             PasserelleB.validatePasserelleB_Click(sender, e, xmiFilePath.Content.ToString());
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Process notepad = Process.Start("C:\\Dev\\Tool\\Modelio 3.3\\modelio.exe");
         }
         
 
