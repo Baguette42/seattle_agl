@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="PasserelleA.cs" />
     <Compile Include="PasserelleB.cs" />
+    <Compile Include="PasserelleC.cs" />
     <Compile Include="StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>

@@ -34,6 +34,8 @@ namespace AGL
             checkBesoinsFile();
             checkUsecaseFile();
             checkClassDiagramFile();
+
+            generatedJavaFilePath.Content = LoadProject.projectFolder;
         }
 
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
@@ -59,9 +61,8 @@ namespace AGL
 
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            DialogResult result = dialog.ShowDialog();
-            generatedJavaFilePath.Content = dialog.SelectedPath;
+            PasserelleC.loadJava_Click(sender, e);
+
         }
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
