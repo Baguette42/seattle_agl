@@ -60,20 +60,20 @@ namespace AGL
                 XmlAttributeCollection attributes = node.Attributes;
                 if (node.Attributes["xmi:type"].Value.Equals("uml:Class")) {
                     buffer += "[";
-                    buffer += node.Attributes["name"].Value;
+                    buffer += "\"" + node.Attributes["name"].Value + "\"";
 
                     //ajout des attributs
                     foreach (XmlNode attributeNode in node.ChildNodes) {
                         if (attributeNode.Name.Equals("ownedAttribute")) {
                             buffer += ", ";
-                            buffer += attributeNode.Attributes["name"].Value;
+                            buffer += "\"" + attributeNode.Attributes["name"].Value + "\"";
                         }
                     }
 
                     foreach (XmlNode methodNode in node.ChildNodes) {
                         if (methodNode.Name.Equals("ownedOperation")) {
                             buffer += ", ";
-                            buffer += methodNode.Attributes["name"].Value;
+                            buffer += "\"" + methodNode.Attributes["name"].Value + "\"";
                         }
                     }
                     buffer += "],";
