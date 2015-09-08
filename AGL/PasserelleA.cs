@@ -156,11 +156,11 @@ namespace AGL
             String buffer = "";
             foreach (XmlNode node in nodes)
             {
-                buffer += "[" + node.Attributes["name"].Value + ",";
+                buffer += "[\"" + node.Attributes["name"].Value + "\",";
                 XmlNodeList attributes = doc.DocumentElement.SelectNodes("//entite[@name='" + node.Attributes["name"].Value + "']/attribut");
                 foreach (XmlNode attribute in attributes)
                 {
-                    buffer += attribute.Attributes["name"].Value + ",";
+                    buffer += "\"" + attribute.Attributes["name"].Value + "\",";
                 }
                 // Suppression du caractère , en trop
                 buffer = buffer.Substring(0, buffer.Length - 1);
@@ -189,7 +189,7 @@ namespace AGL
             {
                 XmlAttributeCollection attributes = node.Attributes;
                 if (node.Attributes["xmi:type"].Value.Equals("uml:UseCase"))
-                    buffer += node.Attributes["name"].Value + ",";
+                    buffer += "\"" + node.Attributes["name"].Value + "\",";
             }
             buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
