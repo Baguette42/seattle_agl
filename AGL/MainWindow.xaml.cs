@@ -31,6 +31,7 @@ namespace AGL
         public MainWindow()
         {
             InitializeComponent();
+            validationNeeded.Visibility = Visibility.Hidden;
             checkBesoinsFile();
             checkUsecaseFile();
             checkClassDiagramFile();
@@ -42,6 +43,7 @@ namespace AGL
         {
             PasserelleA.loadBesoins_Click(sender, e, besoinsPath);
             checkBesoinsFile();
+            lockTable(PasserelleA.isModified);
         }
 
         private void loadMCD_Click(object sender, RoutedEventArgs e)
@@ -72,11 +74,13 @@ namespace AGL
         {
             PasserelleA.loadUseCase_Click(sender, e);
             checkUsecaseFile();
+            lockTable(PasserelleA.isModified);
         }
 
         private void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
             PasserelleA.validatePasserelleA_Click(sender, e);
+            lockTable(PasserelleA.isModified);
         }
 
         private void validatePasserelleB_Click(object sender, RoutedEventArgs e)
@@ -125,7 +129,22 @@ namespace AGL
             }
         }
 
-        
+        public void lockTable(bool isModified)
+        {
+            if (isModified)
+            {
+                validationNeeded.Visibility = Visibility.Visible;
+                foreach (TabItem t in tab.Items)
+                    if (false == t.IsSelected)
+                        t.IsEnabled = false;
+            }
+            else
+            {
+                validationNeeded.Visibility = Visibility.Hidden;
+                foreach (TabItem t in tab.Items)
+                    t.IsEnabled = true;
+            }
+        }
 
     }
 }
