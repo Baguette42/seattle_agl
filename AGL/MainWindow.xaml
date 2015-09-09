@@ -3,19 +3,20 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="AGL Seattle" Height="350" Width="525">
     <Grid>
-        <TabControl Margin="0">
+        <TabControl Name="tab" Margin="0">
             <TabItem Header="Spécifications" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto" Margin="0,0,-0.333,0">
                 <DockPanel>
-                    <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
+                    <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleA"  Content="Valider"  Margin="5" Click="validatePasserelleA_Click" DockPanel.Dock="Bottom" />
+                        <Label Name="validationNeeded" Content="Des modification ont été apportées, veuillez valider avant de pouvoir continuer." HorizontalAlignment="Center" VerticalAlignment="Center" DockPanel.Dock="Bottom" Foreground="Red"/>
                     </DockPanel>
-                    <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
+                    <DockPanel LastChildFill="False" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
                         <Button Name="loadBesoinsButton"  Content="Créer / modifier besoins (.csv)"  HorizontalAlignment="Left" Margin="5" Click="loadBesoins_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="Besoins :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="besoinsFilePath" Content="Aucun fichier trouvé" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
-                       
+
                         <Button Name="loadUseCaseButton"  Content="Créer / modifier les uses cases (.xmi)" HorizontalAlignment="Left" Margin="5" Click="loadUseCase_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="Use cases :" VerticalAlignment="Center" Margin="0,0,0,0"/>
@@ -31,7 +32,7 @@
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleB"  Content="Valider"  Margin="5" Click="validatePasserelleB_Click" DockPanel.Dock="Bottom" />
                     </DockPanel>
-                    
+
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Bottom" Margin="0,10,0,0"  >
                         <Button Name="loadMCDButton"  Content="Charger MCD (.xml)" HorizontalAlignment="Left" Margin="5" Click="loadMCD_Click" DockPanel.Dock="Top" Width="200"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
@@ -44,7 +45,7 @@
                             <Label Content="Diagramme de classe :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="xmiFilePath" Content="Aucun fichier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
-                       
+
                     </DockPanel>
                 </DockPanel>
 

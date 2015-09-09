@@ -56,6 +56,7 @@ namespace AGL
             if (msg.Length != 0)
             {
                 System.Windows.Forms.MessageBox.Show(msg, "Important");
+                return;
             }
 
             isModified = false;
