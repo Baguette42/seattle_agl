@@ -117,7 +117,7 @@ namespace AGL
 
         private void checkClassDiagramFile()
         {
-            if (File.Exists(LoadProject.projectFolder + "\\classdiagram.xmi"))
+            if (File.Exists(LoadProject.projectFolder + "\\6"))
             {
                 classdiagramPath = LoadProject.projectFolder + "\\classdiagram.xmi";
                 xmiFilePath.Content = classdiagramPath;

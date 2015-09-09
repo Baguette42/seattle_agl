@@ -23,6 +23,16 @@ namespace AGL
         public StartUpWindow()
         {
             InitializeComponent();
+
+            LoadProject.modelioPath = Environment.GetEnvironmentVariable("MODELIO_PATH");
+            LoadProject.netbeansPath = Environment.GetEnvironmentVariable("NETBEANS_PATH");
+            LoadProject.jmerisePath = Environment.GetEnvironmentVariable("JMERISE_PATH");
+
+            if (LoadProject.modelioPath == null || LoadProject.netbeansPath == null || LoadProject.jmerisePath == null)
+            {
+                System.Windows.Forms.MessageBox.Show("Les variables d'environnement n'ont pas été configurées, le programme ne peut pas s'éxecuter");
+                this.Close();
+            }
         }
 
         private void yes_Click(object sender, RoutedEventArgs e)
