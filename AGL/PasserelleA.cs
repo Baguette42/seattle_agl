@@ -16,91 +16,90 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
+using Newtonsoft.Json.Linq;
 
 namespace AGL
 {
     public static class PasserelleA
     {
+        public static bool isModified = false;
+
         public static void loadBesoins_Click(object sender, RoutedEventArgs e, string besoinsPath)
         {
+            isModified = true;
+
             if (besoinsPath != null)
             {
                 Process excel = Process.Start(besoinsPath);
                 excel.WaitForExit();
-            } else {
+            }
+            else
+            {
                 StreamWriter sw = new StreamWriter(File.OpenWrite(LoadProject.projectFolder + "\\besoins.csv"));
                 sw.Close();
                 Process excel = Process.Start(LoadProject.projectFolder + "\\besoins.csv");
                 excel.WaitForExit();
             }
-
-            /*
-            // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            //dlg.DefaultExt = ".xlsx";
-            //dlg.Filter = "Excel file (.xlsx)|*.xlsx";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-                Process excel = Process.Start(filename);
-                excelToJson(filename);
-                return filename;
-            } else {
-                return null;
-            }*/
         }
-
-       
 
         public static void loadUseCase_Click(object sender, RoutedEventArgs e)
         {
+            isModified = true;
 
             Process modelio = Process.Start(LoadProject.modelioPath);
             modelio.WaitForExit();
-           /* // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xmi";
-            dlg.Filter = "XMI file (.xmi)|*.xmi";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-                useCaseToJson(filename);
-                return filename;
-            } else {
-                return null;
-            }*/
         }
 
         public static void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
-            /*var dialog = new FolderBrowserDialog();
-            DialogResult result = dialog.ShowDialog();
-
-            if (result == DialogResult.OK)
+            String msg = compareJsonSpec();
+            if (msg.Length != 0)
             {
-                WordDocumentWriter.CreateSTB(dialog.SelectedPath);
-                System.Windows.Forms.MessageBox.Show("STB générée dans le dossier " + dialog.SelectedPath);
-            } else {
-                System.Windows.Forms.MessageBox.Show("Aucun dossier selectionné, pas de traitement effectué");
-            }*/
-                
+                System.Windows.Forms.MessageBox.Show(msg, "Important");
+            }
+
+            isModified = false;
         }
+
+        public static string compareJsonSpec()
+        {
+            //FIXME
+            String excelPath = LoadProject.projectFolder + "\\besoins.json";
+            String usecasePath = LoadProject.projectFolder + "\\usecase.json";
+            StreamReader excelReader = File.OpenText(excelPath);
+            StreamReader usecaseReader = File.OpenText(usecasePath);
+
+            JArray excelArray = JArray.Parse(excelReader.ReadToEnd());
+            JArray usecaseArray = JArray.Parse(usecaseReader.ReadToEnd());
+
+            String result = "";
+            bool found = false;
+
+            for (int i = 0; i < excelArray.Count; ++i)
+            {
+                JToken[] besoin = excelArray[i].ToArray();
+                String reference = besoin[1].Value<string>();
+                for (int j = 0; j < usecaseArray.Count; ++j)
+                {
+                    JToken[] usecase = usecaseArray[j].ToArray();
+                    if (true == reference.Equals(usecase[1].Value<string>()))
+                    {
+                        found = true;
+                    }
+                }
+                if (false == found)
+                {
+                    result += "L'expression du besoin " + besoin[0].Value<string>() + " n'est pas référencée dans les usecases." + Environment.NewLine;
+                }
+                found = false;
+            }
+
+            if (result.Length != 0)
+                result += "Merci de corriger la(les) erreur(s) avant de continuer.";
+            
+            return result;
+        }
+
         public static void generateSTB()
         {
             WordDocumentWriter.CreateSTB(LoadProject.projectFolder);
@@ -108,13 +107,11 @@ namespace AGL
 
         }
 
-
         public static void excelToJson(String filename)
         {
-
             StreamReader sreader = File.OpenText(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
-            String fileWrite = path + "\\besoin.json";
+            String fileWrite = path + "\\besoins.json";
 
             //if there is already a JSON, we delete it to avoid writing over it
             if (File.Exists(fileWrite))
@@ -149,8 +146,6 @@ namespace AGL
             swriter.Close();
         }
 
-       
-
         public static void useCaseToJson(String filename)
         {
             XmlDocument doc = new XmlDocument();
@@ -172,7 +167,14 @@ namespace AGL
             {
                 XmlAttributeCollection attributes = node.Attributes;
                 if (node.Attributes["xmi:type"].Value.Equals("uml:UseCase"))
-                    buffer += "\"" + node.Attributes["name"].Value + "\",";
+                {
+                    buffer += "[\"" + node.Attributes["name"].Value + "\",\"";
+                    buffer += node.SelectSingleNode("ownedComment").SelectSingleNode("body").InnerText;
+                    //FIXME vérifier si la langue nique pas le CRLF
+                    //remove linebreak
+                    buffer = buffer.Substring(0, buffer.Length - 2);
+                    buffer += "\"],";
+                }
             }
             buffer = buffer.Substring(0, buffer.Length - 1);
             swriter.Write(buffer);
