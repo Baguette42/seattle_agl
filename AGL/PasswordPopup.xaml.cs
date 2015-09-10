@@ -19,14 +19,20 @@ namespace AGL
     /// </summary>
     public partial class PasswordPopup : Window
     {
-        public PasswordPopup()
+        private bool deleteDatabase = false;
+        public PasswordPopup(bool deleteDatabase)
         {
+            this.deleteDatabase = deleteDatabase;
             InitializeComponent();
         }
 
         private void validatePassword_Click(object sender, RoutedEventArgs e)
         {
+            if (deleteDatabase)
+                PasserelleB.deleteProjectDatabase(passbox.Password);
+
             PasserelleB.createProjectDatabaseAux(passbox.Password);
+
             this.Close();
         }
 
