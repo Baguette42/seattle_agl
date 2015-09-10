@@ -22,6 +22,7 @@ namespace AGL
     public partial class LoadProject : Window
     {
         public static string projectFolder = "";
+        public static string projectName = "";
         public static string modelioPath = null;
         public static string netbeansPath = null;
         public static string jmerisePath = null;
@@ -40,6 +41,9 @@ namespace AGL
 
             projectFolder = dialog.SelectedPath;
             folderPath.Content = projectFolder;
+
+            projectName = projectFolder.Split('\\').Last();
+
             folderSelected = true;
             // if a folder is selected, validation button is enabled
             validateProjectFolder.IsEnabled = true;

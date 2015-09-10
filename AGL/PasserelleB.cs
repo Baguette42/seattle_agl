@@ -157,7 +157,41 @@ namespace AGL
         }
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
-            classesToJson(xmiPath);
+            //classesToJson(xmiPath);
+            createProjectDatabase();
+        }
+
+        private static void createProjectDatabase()
+        {
+            //if the sql script exist, we generate the database
+            if (File.Exists(LoadProject.projectFolder + "\\mcd.sql"))
+            {
+                //string commandline = "mysql -u root -p";
+                PasswordPopup pwp = new PasswordPopup();
+                pwp.Show();
+                
+            }
+
+        }
+
+        public static void createProjectDatabaseAux(string rootPassword)
+        {
+            string createDbCommandline = "mysql -u root --password=\"" + rootPassword + "\" -e \" create database " + LoadProject.projectName + "\"";
+            string runScriptCommandline = "mysql -u root --password=\"" + rootPassword + "\" " + LoadProject.projectName + " < " + LoadProject.projectFolder + "\\mcd.sql";
+
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processInfo.FileName = "cmd.exe";
+
+            processInfo.Arguments = "/C " + createDbCommandline;
+            Process.Start(processInfo).WaitForExit();
+
+            processInfo.Arguments = "/C " + runScriptCommandline;
+            Process.Start(processInfo).WaitForExit();
+
+
+            System.Windows.Forms.MessageBox.Show("Database générée");
+
         }
     }
 }
