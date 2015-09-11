@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace AGL
 {
@@ -49,6 +50,8 @@ namespace AGL
         {
             Process jmerise = Process.Start(LoadProject.jmerisePath);
             jmerise.WaitForExit();
+            checkMCDcoherence();
+            
             /*
             // Create OpenFileDialog
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -157,7 +160,114 @@ namespace AGL
         }
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
-            classesToJson(xmiPath);
+            //classesToJson(xmiPath);
+            createProjectDatabase();
         }
+
+        private static void createProjectDatabase()
+        {
+            //if the sql script exist, we generate the database
+            if (File.Exists(LoadProject.projectFolder + "\\mcd.sql"))
+            {
+                //asks for MySQL root password and calls createProjectDatabaseAux
+                PasswordPopup pwp = new PasswordPopup(false);
+                pwp.Show();
+
+            }
+            else
+                System.Windows.Forms.MessageBox.Show("Le script 'mcd.sql' n'a pas été trouvé, la base de données n'a pas pu être générée");
+        }
+
+        public static void createProjectDatabaseAux(string rootPassword)
+        {
+            string createDbCommandline = "mysql -u root --password=\"" + rootPassword + "\" -e \" create database " + LoadProject.projectName + "\"";
+            string runScriptCommandline = "mysql -u root --password=\"" + rootPassword + "\" " + LoadProject.projectName + " < " + LoadProject.projectFolder + "\\mcd.sql";
+
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processInfo.FileName = "cmd.exe";
+
+            processInfo.Arguments = "/C " + createDbCommandline;
+            Process.Start(processInfo).WaitForExit();
+
+            processInfo.Arguments = "/C " + runScriptCommandline;
+            Process.Start(processInfo).WaitForExit();
+
+
+            System.Windows.Forms.MessageBox.Show("Database générée");
+
+        }
+
+        public static void deleteProjectDatabase(string rootPassword)
+        {
+            string deleteDbCommandline = "mysql -u root --password=\"" + rootPassword + "\" -e \" drop database " + LoadProject.projectName + "\"";
+
+            ProcessStartInfo processInfo = new ProcessStartInfo();
+            processInfo.WindowStyle = ProcessWindowStyle.Normal;
+            processInfo.FileName = "cmd.exe";
+
+            processInfo.Arguments = "/C " + deleteDbCommandline;
+            Process.Start(processInfo).WaitForExit();
+        }
+
+        private static void mcdModificationCheck()
+        {
+            if (Directory.Exists(LoadProject.projectFolder + "\\DAO"))
+            {
+                if (checkMCDcoherence() == false)
+                {
+                    //DAO are deleted
+                    Directory.Delete(LoadProject.projectFolder + "\\DAO", true);
+                    File.Delete(LoadProject.projectFolder + "\\hibernate.cfg");
+                    File.Delete(LoadProject.projectFolder + "\\hibernate.reveng.xml");
+
+                    //asks for MySQL root password then drops the existing database and recreates it with the new script
+                    PasswordPopup pwp = new PasswordPopup(true);
+                    pwp.Show();
+
+
+                    System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO" );
+
+                    Process netbeans = Process.Start(LoadProject.netbeansPath);
+                    netbeans.WaitForExit();
+
+
+                }
+            }
+        }
+
+        private static bool checkMCDcoherence()
+        {
+            if (Directory.Exists(LoadProject.projectFolder + "\\DAO"))
+            {
+                String mcdPath = LoadProject.projectFolder + "\\mcd.json";
+                StreamReader mcdReader = File.OpenText(mcdPath);
+
+                JArray mcdArray = JArray.Parse(mcdReader.ReadToEnd());
+
+
+                for (int i = 0; i < mcdArray.Count; ++i)
+                {
+                    JToken[] table = mcdArray[i].ToArray();
+                    String tableName = table[0].Value<string>();
+
+                    if (associatedDaoExists(tableName) == false)
+                        return false;
+
+                }
+
+                return true;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public static bool associatedDaoExists(string tableName)
+        {
+            return File.Exists(LoadProject.projectFolder + "\\DAO\\" + tableName + "DAO.java");
+        }
+
     }
 }

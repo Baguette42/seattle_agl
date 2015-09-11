@@ -22,9 +22,10 @@ namespace AGL
     public partial class LoadProject : Window
     {
         public static string projectFolder = "";
-        public static string modelioPath = "C:\\Users\\Guillaume\\Downloads\\modelio-open-201502191121-win32.win32.x86_64\\Modelio 3.3\\modelio.exe";
-        public static string netbeansPath = "C:\\Program Files\\NetBeans 8.0.2\\bin\\netbeans.exe";
-        public static string jmerisePath = "";
+        public static string projectName = "";
+        public static string modelioPath = null;
+        public static string netbeansPath = null;
+        public static string jmerisePath = null;
 
         private bool folderSelected = false;
 
@@ -40,6 +41,9 @@ namespace AGL
 
             projectFolder = dialog.SelectedPath;
             folderPath.Content = projectFolder;
+
+            projectName = projectFolder.Split('\\').Last();
+
             folderSelected = true;
             // if a folder is selected, validation button is enabled
             validateProjectFolder.IsEnabled = true;

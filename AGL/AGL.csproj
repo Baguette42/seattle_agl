@@ -68,6 +68,9 @@
     <Compile Include="PasserelleA.cs" />
     <Compile Include="PasserelleB.cs" />
     <Compile Include="PasserelleC.cs" />
+    <Compile Include="PasswordPopup.xaml.cs">
+      <DependentUpon>PasswordPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +91,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PasswordPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="StartUpWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
