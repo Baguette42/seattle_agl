@@ -28,6 +28,13 @@ namespace AGL
             LoadProject.netbeansPath = Environment.GetEnvironmentVariable("NETBEANS_PATH");
             LoadProject.jmerisePath = Environment.GetEnvironmentVariable("JMERISE_PATH");
 
+            if (null == LoadProject.modelioPath)
+                LoadProject.modelioPath = Environment.GetEnvironmentVariable("MODELIO_PATH", EnvironmentVariableTarget.User);
+            if (null == LoadProject.netbeansPath)
+                LoadProject.netbeansPath = Environment.GetEnvironmentVariable("NETBEANS_PATH", EnvironmentVariableTarget.User);
+            if (null == LoadProject.jmerisePath)
+                LoadProject.jmerisePath = Environment.GetEnvironmentVariable("JMERISE_PATH", EnvironmentVariableTarget.User);
+
             if (LoadProject.modelioPath == null || LoadProject.netbeansPath == null || LoadProject.jmerisePath == null)
             {
                 System.Windows.Forms.MessageBox.Show("Les variables d'environnement n'ont pas été configurées, le programme ne peut pas s'éxecuter");

@@ -64,7 +64,6 @@ namespace AGL
 
         public static string compareJsonSpec()
         {
-            //FIXME
             String excelPath = LoadProject.projectFolder + "\\besoins.json";
             String usecasePath = LoadProject.projectFolder + "\\usecase.json";
             StreamReader excelReader = File.OpenText(excelPath);

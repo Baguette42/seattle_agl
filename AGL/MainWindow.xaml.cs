@@ -87,6 +87,7 @@ namespace AGL
         private void validatePasserelleB_Click(object sender, RoutedEventArgs e)
         {
             PasserelleB.validatePasserelleB_Click(sender, e, xmiFilePath.Content.ToString());
+            lockTable(PasserelleB.isModified);
         }
 
 

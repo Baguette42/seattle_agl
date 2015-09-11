@@ -22,60 +22,22 @@ namespace AGL
 {
     public static class PasserelleB
     {
+        public static bool isModified = false;
+
         public static void loadXMI_Click(object sender, RoutedEventArgs e)
         {
+            isModified = true;
             Process modelio = Process.Start(LoadProject.modelioPath);
             modelio.WaitForExit();
-           /* // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xmi";
-            dlg.Filter = "XMI file (.xmi)|*.xmi";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-                return filename;
-            } else {
-                return null;
-            }*/
         }
+
         public static void loadMCD_Click(object sender, RoutedEventArgs e)
         {
+            isModified = true;
             Process jmerise = Process.Start(LoadProject.jmerisePath);
             jmerise.WaitForExit();
-            //checkMCDcoherence(); called after 
-            
-            /*
-            // Create OpenFileDialog
-            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-
-            // Set filter for file extension and default file extension
-            dlg.DefaultExt = ".xml";
-            dlg.Filter = "XML file (.xml)|*.xml";
-
-            // Display OpenFileDialog by calling ShowDialog method
-            Nullable<bool> result = dlg.ShowDialog();
-
-            // Get the selected file name and display in a TextBox
-            if (result == true)
-            {
-                // Open document
-                string filename = dlg.FileName;
-                mcdToJson(filename);
-                return filename;
-            }
-            else
-            {
-                return null;
-            }*/
         }
+
         public static void mcdToJson(String filename)
         {
             XmlDocument doc = new XmlDocument();
@@ -111,6 +73,7 @@ namespace AGL
             swriter.Flush();
             swriter.Close();
         }
+
         public static void classesToJson(String filename)
         {
             XmlDocument doc = new XmlDocument();
@@ -131,20 +94,25 @@ namespace AGL
             foreach (XmlNode node in nodes)
             {
                 XmlAttributeCollection attributes = node.Attributes;
-                if (node.Attributes["xmi:type"].Value.Equals("uml:Class")) {
+                if (node.Attributes["xmi:type"].Value.Equals("uml:Class"))
+                {
                     buffer += "[";
                     buffer += "\"" + node.Attributes["name"].Value + "\"";
 
                     //ajout des attributs
-                    foreach (XmlNode attributeNode in node.ChildNodes) {
-                        if (attributeNode.Name.Equals("ownedAttribute")) {
+                    foreach (XmlNode attributeNode in node.ChildNodes)
+                    {
+                        if (attributeNode.Name.Equals("ownedAttribute"))
+                        {
                             buffer += ", ";
                             buffer += "\"" + attributeNode.Attributes["name"].Value + "\"";
                         }
                     }
 
-                    foreach (XmlNode methodNode in node.ChildNodes) {
-                        if (methodNode.Name.Equals("ownedOperation")) {
+                    foreach (XmlNode methodNode in node.ChildNodes)
+                    {
+                        if (methodNode.Name.Equals("ownedOperation"))
+                        {
                             buffer += ", ";
                             buffer += "\"" + methodNode.Attributes["name"].Value + "\"";
                         }
@@ -158,10 +126,12 @@ namespace AGL
             swriter.Flush();
             swriter.Close();
         }
+        
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
             //classesToJson(xmiPath);
             createProjectDatabase();
+            isModified = false;
         }
 
         private static void createProjectDatabase()
@@ -172,7 +142,6 @@ namespace AGL
                 //asks for MySQL root password and calls createProjectDatabaseAux
                 PasswordPopup pwp = new PasswordPopup(false);
                 pwp.Show();
-
             }
             else
                 System.Windows.Forms.MessageBox.Show("Le script 'mcd.sql' n'a pas été trouvé, la base de données n'a pas pu être générée");
@@ -193,9 +162,7 @@ namespace AGL
             processInfo.Arguments = "/C " + runScriptCommandline;
             Process.Start(processInfo).WaitForExit();
 
-
             System.Windows.Forms.MessageBox.Show("Database générée");
-
         }
 
         public static void deleteProjectDatabase(string rootPassword)
@@ -245,8 +212,6 @@ namespace AGL
                 StreamReader mcdReader = File.OpenText(mcdPath);
 
                 JArray mcdArray = JArray.Parse(mcdReader.ReadToEnd());
-
-
                 for (int i = 0; i < mcdArray.Count; ++i)
                 {
                     JToken[] table = mcdArray[i].ToArray();
@@ -254,15 +219,10 @@ namespace AGL
 
                     if (associatedDaoExists(tableName) == false)
                         return false;
-
                 }
+            }
 
-                return true;
-            }
-            else
-            {
-                return true;
-            }
+            return true;
         }
 
         public static bool associatedDaoExists(string tableName)
