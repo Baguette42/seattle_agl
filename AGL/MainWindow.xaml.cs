@@ -50,6 +50,7 @@ namespace AGL
         {
             PasserelleB.loadMCD_Click(sender, e);
             checkMCDFile();
+            PasserelleB.mcdModificationCheck();
         }
 
         private void loadXMI_Click(object sender, RoutedEventArgs e)

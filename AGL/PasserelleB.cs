@@ -50,7 +50,7 @@ namespace AGL
         {
             Process jmerise = Process.Start(LoadProject.jmerisePath);
             jmerise.WaitForExit();
-            checkMCDcoherence();
+            //checkMCDcoherence(); called after 
             
             /*
             // Create OpenFileDialog
@@ -210,35 +210,36 @@ namespace AGL
             Process.Start(processInfo).WaitForExit();
         }
 
-        private static void mcdModificationCheck()
+        public static void mcdModificationCheck()
         {
-            if (Directory.Exists(LoadProject.projectFolder + "\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
             {
                 if (checkMCDcoherence() == false)
                 {
                     //DAO are deleted
-                    Directory.Delete(LoadProject.projectFolder + "\\DAO", true);
-                    File.Delete(LoadProject.projectFolder + "\\hibernate.cfg");
-                    File.Delete(LoadProject.projectFolder + "\\hibernate.reveng.xml");
+                    Directory.Delete(LoadProject.projectFolder + "\\src\\DAO", true);
+                    File.Delete(LoadProject.projectFolder + "\\src\\hibernate.cfg.xml");
+                    File.Delete(LoadProject.projectFolder + "\\src\\hibernate.reveng.xml");
 
                     //asks for MySQL root password then drops the existing database and recreates it with the new script
                     PasswordPopup pwp = new PasswordPopup(true);
                     pwp.Show();
 
-
-                    System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO" );
-
-                    Process netbeans = Process.Start(LoadProject.netbeansPath);
-                    netbeans.WaitForExit();
-
-
                 }
             }
+        }
+            public static void mcdModificationCheckAux()
+        {
+         
+            System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO" );
+
+            Process netbeans = Process.Start(LoadProject.netbeansPath);
+            netbeans.WaitForExit();
         }
 
         private static bool checkMCDcoherence()
         {
-            if (Directory.Exists(LoadProject.projectFolder + "\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
             {
                 String mcdPath = LoadProject.projectFolder + "\\mcd.json";
                 StreamReader mcdReader = File.OpenText(mcdPath);
@@ -266,7 +267,7 @@ namespace AGL
 
         public static bool associatedDaoExists(string tableName)
         {
-            return File.Exists(LoadProject.projectFolder + "\\DAO\\" + tableName + "DAO.java");
+            return File.Exists(LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java");
         }
 
     }

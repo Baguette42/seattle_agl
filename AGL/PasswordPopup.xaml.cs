@@ -33,6 +33,9 @@ namespace AGL
 
             PasserelleB.createProjectDatabaseAux(passbox.Password);
 
+            if (deleteDatabase)
+                PasserelleB.mcdModificationCheckAux();
+
             this.Close();
         }
 
