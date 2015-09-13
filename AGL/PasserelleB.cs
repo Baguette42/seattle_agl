@@ -212,7 +212,7 @@ namespace AGL
             netbeans.WaitForExit();
         }
 
-        private static bool checkMCDcoherence()
+        public static bool checkMCDcoherence()
         {
             if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
             {

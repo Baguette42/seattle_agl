@@ -72,6 +72,8 @@ namespace AGL
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
             PasserelleC.loadJava_Click(sender, e);
+            if ((PasserelleB.checkClassDiagramCoherence() && PasserelleB.checkMCDcoherence()) == false)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et/ou le mcd et les classes .java présentes dans le dossier source");
 
         }
 
