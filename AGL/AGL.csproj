@@ -71,6 +71,9 @@
     <Compile Include="PasswordPopup.xaml.cs">
       <DependentUpon>PasswordPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="selectGeneratedJavaWindow.xaml.cs">
+      <DependentUpon>selectGeneratedJavaWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartUpWindow.xaml.cs">
       <DependentUpon>StartUpWindow.xaml</DependentUpon>
     </Compile>
@@ -92,6 +95,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="PasswordPopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="selectGeneratedJavaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

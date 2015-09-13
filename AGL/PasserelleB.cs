@@ -29,6 +29,7 @@ namespace AGL
             isModified = true;
             Process modelio = Process.Start(LoadProject.modelioPath);
             modelio.WaitForExit();
+            moveJavaFilesToProjectSrc();
         }
 
         public static void loadMCD_Click(object sender, RoutedEventArgs e)
@@ -79,11 +80,18 @@ namespace AGL
             XmlDocument doc = new XmlDocument();
             doc.Load(filename);
             String path = filename.Substring(0, filename.LastIndexOf('\\'));
-            String fileWrite = path + "\\classes.json";
+            String fileWrite = path + "\\classdiagram.json";
 
             //if there is already a JSON, we delete it to avoid writing over it
-            if (File.Exists(fileWrite))
-                File.Delete(fileWrite);
+            try
+            {
+                if (File.Exists(fileWrite))
+                    File.Delete(fileWrite);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show("Erreur : le JSON du diagramme de classe n'a pas pu être regénéré");
+            }
 
             StreamWriter swriter = new StreamWriter(File.OpenWrite(@fileWrite));
 
@@ -230,5 +238,56 @@ namespace AGL
             return File.Exists(LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java");
         }
 
+        public static bool associatedJavaClassExists(string classname)
+        {
+            return File.Exists(LoadProject.projectFolder + "\\src\\" + LoadProject.projectName + "\\" + classname + ".java");
+        }
+
+        public static void moveJavaFilesToProjectSrc()
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "Selectionnez le dossier \"src\" dans lequel modelio a généré le code Java";
+            DialogResult generatedJavaFolder = dialog.ShowDialog();
+            string sourceFolder = dialog.SelectedPath;
+
+            string destinationPath = LoadProject.projectFolder + "\\src\\" + LoadProject.projectName;
+
+            if (Directory.Exists(sourceFolder))
+            {
+                //Now Create all of the directories
+                foreach (string dirPath in Directory.GetDirectories(sourceFolder, "*",
+                    SearchOption.AllDirectories))
+                    Directory.CreateDirectory(dirPath.Replace(sourceFolder, destinationPath));
+
+                //Copy all the files & Replaces any files with the same name
+                foreach (string newPath in Directory.GetFiles(sourceFolder, "*.*",
+                    SearchOption.AllDirectories))
+                    File.Copy(newPath, newPath.Replace(sourceFolder, destinationPath), true);
+            }
+        }
+
+        public static bool checkClassDiagramCoherence()
+        {
+
+
+            if (Directory.Exists(LoadProject.projectFolder + "\\src") && File.Exists(LoadProject.projectFolder + "\\classdiagram.json"))
+            {
+                String classdiagramPath = LoadProject.projectFolder + "\\classdiagram.json";
+                StreamReader classdiagramReader = File.OpenText(classdiagramPath);
+
+                JArray classdiagramArray = JArray.Parse(classdiagramReader.ReadToEnd());
+                for (int i = 0; i < classdiagramArray.Count; ++i)
+                {
+                    JToken[] classToCheck = classdiagramArray[i].ToArray();
+                    String className = classToCheck[0].Value<string>();
+
+                    if (associatedJavaClassExists(className) == false)
+                        return false;
+                }
+            }
+
+            return true;
+
+        }
     }
 }

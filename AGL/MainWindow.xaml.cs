@@ -35,6 +35,7 @@ namespace AGL
             checkBesoinsFile();
             checkUsecaseFile();
             checkClassDiagramFile();
+            checkMCDFile();
 
             generatedJavaFilePath.Content = LoadProject.projectFolder;
         }
@@ -58,6 +59,9 @@ namespace AGL
             //returns the selected file's path (null value if no file was selected)
             PasserelleB.loadXMI_Click(sender, e);
             checkClassDiagramFile();
+            if (PasserelleB.checkClassDiagramCoherence() == false)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
+
 
         }
 
