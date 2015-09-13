@@ -15,7 +15,6 @@ namespace AGL
         {
             Process netbeans = Process.Start(LoadProject.netbeansPath);
             netbeans.WaitForExit();
-          
         }
     }
 }

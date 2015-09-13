@@ -137,9 +137,9 @@ namespace AGL
         
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
-            //classesToJson(xmiPath);
-            createProjectDatabase();
-            isModified = false;
+            //createProjectDatabase();
+            isModified = !(checkMCDcoherence() && checkClassDiagramCoherence());
+            //isModified = false;
         }
 
         private static void createProjectDatabase()
@@ -187,11 +187,13 @@ namespace AGL
 
         public static void mcdModificationCheck()
         {
+            //FIXME minuscule
             if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
             {
                 if (checkMCDcoherence() == false)
                 {
                     //DAO are deleted
+                    //FIXME minuscule
                     Directory.Delete(LoadProject.projectFolder + "\\src\\DAO", true);
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.cfg.xml");
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.reveng.xml");
@@ -199,13 +201,11 @@ namespace AGL
                     //asks for MySQL root password then drops the existing database and recreates it with the new script
                     PasswordPopup pwp = new PasswordPopup(true);
                     pwp.Show();
-
                 }
             }
         }
             public static void mcdModificationCheckAux()
         {
-         
             System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO" );
 
             Process netbeans = Process.Start(LoadProject.netbeansPath);
@@ -214,6 +214,7 @@ namespace AGL
 
         public static bool checkMCDcoherence()
         {
+            //FIXME minuscule
             if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
             {
                 String mcdPath = LoadProject.projectFolder + "\\mcd.json";
@@ -224,8 +225,12 @@ namespace AGL
                 {
                     JToken[] table = mcdArray[i].ToArray();
                     String tableName = table[0].Value<string>();
+                    //TODO check sur les attributs/méthodes
 
-                    if (associatedDaoExists(tableName) == false)
+                    //FIXME enlever le DAO.java du nom du fichier
+                    String file = LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java";
+
+                    if (File.Exists(file) == false)
                         return false;
                 }
             }
@@ -233,24 +238,14 @@ namespace AGL
             return true;
         }
 
-        public static bool associatedDaoExists(string tableName)
-        {
-            return File.Exists(LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java");
-        }
-
-        public static bool associatedJavaClassExists(string classname)
-        {
-            return File.Exists(LoadProject.projectFolder + "\\src\\" + LoadProject.projectName + "\\" + classname + ".java");
-        }
-
         public static void moveJavaFilesToProjectSrc()
         {
             FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "Selectionnez le dossier \"src\" dans lequel modelio a généré le code Java";
+            dialog.Description = "Selectionnez le dossier \"src\" dans lequel Modelio a généré le code Java";
             DialogResult generatedJavaFolder = dialog.ShowDialog();
             string sourceFolder = dialog.SelectedPath;
 
-            string destinationPath = LoadProject.projectFolder + "\\src\\" + LoadProject.projectName;
+            string destinationPath = LoadProject.projectFolder + "\\src\\";
 
             if (Directory.Exists(sourceFolder))
             {
@@ -268,8 +263,6 @@ namespace AGL
 
         public static bool checkClassDiagramCoherence()
         {
-
-
             if (Directory.Exists(LoadProject.projectFolder + "\\src") && File.Exists(LoadProject.projectFolder + "\\classdiagram.json"))
             {
                 String classdiagramPath = LoadProject.projectFolder + "\\classdiagram.json";
@@ -280,14 +273,14 @@ namespace AGL
                 {
                     JToken[] classToCheck = classdiagramArray[i].ToArray();
                     String className = classToCheck[0].Value<string>();
+                    //TODO check sur les attributs/méthodes
 
-                    if (associatedJavaClassExists(className) == false)
+                    String file = LoadProject.projectFolder + "\\src\\" + className + ".java";
+                    if (File.Exists(file) == false)
                         return false;
                 }
             }
-
             return true;
-
         }
     }
 }

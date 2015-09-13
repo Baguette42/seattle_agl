@@ -52,6 +52,7 @@ namespace AGL
             PasserelleB.loadMCD_Click(sender, e);
             checkMCDFile();
             PasserelleB.mcdModificationCheck();
+            lockTable(PasserelleB.isModified);
         }
 
         private void loadXMI_Click(object sender, RoutedEventArgs e)
@@ -61,8 +62,7 @@ namespace AGL
             checkClassDiagramFile();
             if (PasserelleB.checkClassDiagramCoherence() == false)
                 System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
-
-
+            lockTable(PasserelleB.isModified);
         }
 
         private void generateSTB_Click(object sender, RoutedEventArgs e)
@@ -74,7 +74,6 @@ namespace AGL
             PasserelleC.loadJava_Click(sender, e);
             if ((PasserelleB.checkClassDiagramCoherence() && PasserelleB.checkMCDcoherence()) == false)
                 System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et/ou le mcd et les classes .java présentes dans le dossier source");
-
         }
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
