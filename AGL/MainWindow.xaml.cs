@@ -31,7 +31,8 @@ namespace AGL
         public MainWindow()
         {
             InitializeComponent();
-            validationNeeded.Visibility = Visibility.Hidden;
+            validationNeededA.Visibility = Visibility.Hidden;
+            validationNeededB.Visibility = Visibility.Hidden;
             checkBesoinsFile();
             checkUsecaseFile();
             checkClassDiagramFile();
@@ -140,14 +141,16 @@ namespace AGL
         {
             if (isModified)
             {
-                validationNeeded.Visibility = Visibility.Visible;
+                validationNeededA.Visibility = Visibility.Visible;
+                validationNeededB.Visibility = Visibility.Visible;
                 foreach (TabItem t in tab.Items)
                     if (false == t.IsSelected)
                         t.IsEnabled = false;
             }
             else
             {
-                validationNeeded.Visibility = Visibility.Hidden;
+                validationNeededA.Visibility = Visibility.Hidden;
+                validationNeededB.Visibility = Visibility.Hidden;
                 foreach (TabItem t in tab.Items)
                     t.IsEnabled = true;
             }
