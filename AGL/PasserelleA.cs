@@ -52,14 +52,26 @@ namespace AGL
 
         public static void validatePasserelleA_Click(object sender, RoutedEventArgs e)
         {
-            String msg = compareJsonSpec();
-            if (msg.Length != 0)
+            if (File.Exists(LoadProject.projectFolder + "\\besoins.json") == false)
             {
-                System.Windows.Forms.MessageBox.Show(msg, "Important");
-                return;
+                System.Windows.Forms.MessageBox.Show("Le fichier \"besoins.json\" est manquant");
             }
+            else if (File.Exists(LoadProject.projectFolder + "\\usecase.json") == false)
+            {
+                System.Windows.Forms.MessageBox.Show("Le fichier \"usecase.json\" est manquant");
 
-            isModified = false;
+            }
+            else
+            {
+                String msg = compareJsonSpec();
+                if (msg.Length != 0)
+                {
+                    System.Windows.Forms.MessageBox.Show(msg, "Important");
+                    return;
+                }
+
+                isModified = false;
+            }
         }
 
         public static string compareJsonSpec()
