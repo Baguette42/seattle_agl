@@ -210,14 +210,12 @@ namespace AGL
 
         public static void mcdModificationCheck()
         {
-            //FIXME minuscule
-            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\dao"))
             {
                 if (checkMCDcoherence() == false)
                 {
                     //DAO are deleted
-                    //FIXME minuscule
-                    Directory.Delete(LoadProject.projectFolder + "\\src\\DAO", true);
+                    Directory.Delete(LoadProject.projectFolder + "\\src\\dao", true);
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.cfg.xml");
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.reveng.xml");
 
@@ -237,8 +235,7 @@ namespace AGL
 
         public static bool checkMCDcoherence()
         {
-            //FIXME minuscule
-            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\dao"))
             {
                 String mcdPath = LoadProject.projectFolder + "\\mcd.json";
                 StreamReader mcdReader = File.OpenText(mcdPath);
@@ -250,14 +247,12 @@ namespace AGL
                     String tableName = table[0].Value<string>();
                     //TODO check sur les attributs/méthodes
 
-                    //FIXME enlever le DAO.java du nom du fichier
-                    String file = LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java";
+                    String file = LoadProject.projectFolder + "\\src\\dao\\" + tableName + ".java";
 
                     if (File.Exists(file) == false)
                         return false;
                 }
             }
-
             return true;
         }
 
