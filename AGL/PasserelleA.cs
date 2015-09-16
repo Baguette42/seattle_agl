@@ -118,6 +118,9 @@ namespace AGL
             if (result.Length != 0)
                 result += "Merci de corriger la(les) erreur(s) avant de continuer.";
 
+            excelReader.Close();
+            usecaseReader.Close();
+
             return result;
         }
 

@@ -240,8 +240,9 @@ namespace AGL
             {
                 String mcdPath = LoadProject.projectFolder + "\\mcd.json";
                 StreamReader mcdReader = File.OpenText(mcdPath);
-
                 JArray mcdArray = JArray.Parse(mcdReader.ReadToEnd());
+                mcdReader.Close();
+
                 for (int i = 0; i < mcdArray.Count; ++i)
                 {
                     JToken[] table = mcdArray[i].ToArray();
@@ -286,8 +287,9 @@ namespace AGL
             {
                 String classdiagramPath = LoadProject.projectFolder + "\\classdiagram.json";
                 StreamReader classdiagramReader = File.OpenText(classdiagramPath);
-
                 JArray classdiagramArray = JArray.Parse(classdiagramReader.ReadToEnd());
+                classdiagramReader.Close();
+
                 for (int i = 0; i < classdiagramArray.Count; ++i)
                 {
                     JToken[] classToCheck = classdiagramArray[i].ToArray();

@@ -33,6 +33,7 @@ namespace AGL
             InitializeComponent();
             validationNeededA.Visibility = Visibility.Hidden;
             validationNeededB.Visibility = Visibility.Hidden;
+            validationNeededC.Visibility = Visibility.Hidden;
             checkBesoinsFile();
             checkUsecaseFile();
             checkClassDiagramFile();
@@ -76,6 +77,7 @@ namespace AGL
         }
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
+            validationNeededC.Visibility = Visibility.Visible;
             PasserelleC.loadJava_Click(sender, e);
             if ((PasserelleB.checkMCDcoherence()) == false)
                 System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le mcd et les classes .java présentes dans le dossier généré");
@@ -84,6 +86,7 @@ namespace AGL
 
         private void loadgeneratedJava_Click2(object sender, RoutedEventArgs e)
         {
+            validationNeededC.Visibility = Visibility.Visible;
             PasserelleC.loadJava_Click(sender, e);
             if ((PasserelleB.checkClassDiagramCoherence()) == false)
                 System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
@@ -167,6 +170,12 @@ namespace AGL
                 foreach (TabItem t in tab.Items)
                     t.IsEnabled = true;
             }
+        }
+
+        private void validatePasserelleC_Click(object sender, RoutedEventArgs e)
+        {
+            PasserelleC.validatePasserelleC_Click(sender, e);
+            validationNeededC.Visibility = Visibility.Hidden;
         }
 
     }
