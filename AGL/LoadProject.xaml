@@ -5,13 +5,13 @@
     <Grid>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" >
             <Label Content="Selectionnez le dossier racine du projet existant" HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Top" Width="280" VerticalAlignment="Center" />
-            <Button Name="loadProjectFolderButton"  Content="Selectionner le dossier du projet" HorizontalAlignment="Center" Margin="5" Click="loadProjectFolder_Click" DockPanel.Dock="Top" Width="200"/>
+            <Button Name="loadProjectFolderButton"  Content="Selectionner le dossier du projet" HorizontalAlignment="Center" Margin="5" Click="loadProjectFolder_Click" DockPanel.Dock="Top" Width="200" ToolTip="Sélectionner le projet sur lequel vous désirez travailler."/>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" >
             <Label Content="Dossier :" VerticalAlignment="Center" Margin="0,0,0,0"/>
             <Label Name="folderPath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
         </DockPanel>
             <DockPanel LastChildFill="False" VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="0,20,0,0" >
-                <Button Name="validateProjectFolder"  Content="Valider"  Margin="5" Click="validateProjectFolder_Click" DockPanel.Dock="Bottom" Width="70" IsEnabled="False"/>
+                <Button Name="validateProjectFolder"  Content="Valider"  Margin="5" Click="validateProjectFolder_Click" DockPanel.Dock="Bottom" Width="70" IsEnabled="False" ToolTip="Valider le projet sur lequel vous désirez travailler pour accéder à l'espace de développement de l'application."/>
             </DockPanel>
         </DockPanel>
 
