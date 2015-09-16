@@ -161,6 +161,7 @@ namespace AGL
 
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
+            createProjectDatabase();
             isModified = !(checkMCDcoherence() && checkClassDiagramCoherence());
             //FIXME afficher information sur les info manquantes
         }
