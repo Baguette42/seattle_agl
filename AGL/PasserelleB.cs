@@ -33,7 +33,7 @@ namespace AGL
             if (false == File.Exists(LoadProject.projectFolder + "\\classdiagram.xmi"))
             {
                 System.Windows.Forms.MessageBox.Show("Le fichier classdiagram.xmi n'a pas pu être trouvé. Merci de l'enregistrer à la racine du projet.");
-                loadMCD_Click(sender, e);
+                loadXMI_Click(sender, e);
             }
 
             moveJavaFilesToProjectSrc();
