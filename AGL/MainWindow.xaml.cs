@@ -38,7 +38,11 @@ namespace AGL
             checkClassDiagramFile();
             checkMCDFile();
 
-            generatedJavaFilePath.Content = LoadProject.projectFolder;
+            if (Directory.Exists(LoadProject.projectFolder + "\\dao"))
+            {
+                generatedJavaFilePath.Content = LoadProject.projectFolder + "\\dao";
+            }
+            generatedJavaFilePath2.Content = LoadProject.projectFolder;
         }
 
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
@@ -73,8 +77,17 @@ namespace AGL
         private void loadgeneratedJava_Click(object sender, RoutedEventArgs e)
         {
             PasserelleC.loadJava_Click(sender, e);
-            if ((PasserelleB.checkClassDiagramCoherence() && PasserelleB.checkMCDcoherence()) == false)
-                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et/ou le mcd et les classes .java présentes dans le dossier source");
+            if ((PasserelleB.checkMCDcoherence()) == false)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le mcd et les classes .java présentes dans le dossier généré");
+            generatedJavaFilePath.Content = LoadProject.projectFolder + "\\dao";
+        }
+
+        private void loadgeneratedJava_Click2(object sender, RoutedEventArgs e)
+        {
+            PasserelleC.loadJava_Click(sender, e);
+            if ((PasserelleB.checkClassDiagramCoherence()) == false)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
+            generatedJavaFilePath2.Content = LoadProject.projectFolder;
         }
 
         private void loadUseCase_Click(object sender, RoutedEventArgs e)
