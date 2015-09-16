@@ -193,7 +193,7 @@ namespace AGL
                     buffer += node.SelectSingleNode("ownedComment").SelectSingleNode("body").InnerText;
                     //FIXME vérifier si la langue nique pas le CRLF
                     //remove linebreak
-                    buffer = buffer.Substring(0, buffer.Length - 2);
+                    //buffer = buffer.Substring(0, buffer.Length - 2);
                     buffer += "\"],";
                 }
             }
