@@ -35,10 +35,19 @@ namespace AGL
             }
             else
             {
-                StreamWriter sw = new StreamWriter(File.OpenWrite(LoadProject.projectFolder + "\\besoins.csv"));
-                sw.Close();
-                Process excel = Process.Start(LoadProject.projectFolder + "\\besoins.csv");
-                excel.WaitForExit();
+                try
+                {
+                    StreamWriter sw = new StreamWriter(File.OpenWrite(LoadProject.projectFolder + "\\besoins.csv"));
+                    sw.WriteLine("Exigence,Reference,Texte,Emplacement");
+                    sw.Close();
+                }
+                finally
+                {
+                    Process excel = Process.Start(LoadProject.projectFolder + "\\besoins.csv");
+                    excel.WaitForExit();
+                }
+
+
             }
         }
 
@@ -108,7 +117,7 @@ namespace AGL
 
             if (result.Length != 0)
                 result += "Merci de corriger la(les) erreur(s) avant de continuer.";
-            
+
             return result;
         }
 

@@ -29,6 +29,13 @@ namespace AGL
             isModified = true;
             Process modelio = Process.Start(LoadProject.modelioPath);
             modelio.WaitForExit();
+
+            if (false == File.Exists(LoadProject.projectFolder + "\\classdiagram.xmi"))
+            {
+                System.Windows.Forms.MessageBox.Show("Le fichier classdiagram.xmi n'a pas pu être trouvé. Merci de l'enregistrer à la racine du projet.");
+                loadMCD_Click(sender, e);
+            }
+
             moveJavaFilesToProjectSrc();
         }
 
@@ -37,6 +44,23 @@ namespace AGL
             isModified = true;
             Process jmerise = Process.Start(LoadProject.jmerisePath);
             jmerise.WaitForExit();
+
+            if (File.Exists(LoadProject.projectFolder + "\\mcd.xml.xml"))
+                File.Move(LoadProject.projectFolder + "\\mcd.xml.xml", LoadProject.projectFolder + "\\mcd.xml");
+            if (File.Exists(LoadProject.projectFolder + "\\mcd.sql.sql"))
+                File.Move(LoadProject.projectFolder + "\\mcd.sql.sql", LoadProject.projectFolder + "\\mcd.sql");
+
+            if (false == File.Exists(LoadProject.projectFolder + "\\mcd.xml"))
+            {
+                System.Windows.Forms.MessageBox.Show("Le fichier mcd.xml n'a pas pu être trouvé. Merci de l'enregistrer à la racine du projet.");
+                loadMCD_Click(sender, e);
+            }
+            if (false == File.Exists(LoadProject.projectFolder + "\\mcd.sql"))
+            {
+                System.Windows.Forms.MessageBox.Show("Le fichier mcd.sql n'a pas pu être trouvé. Merci de l'enregistrer à la racine du projet.");
+                loadMCD_Click(sender, e);
+            }
+
         }
 
         public static void mcdToJson(String filename)
@@ -134,12 +158,11 @@ namespace AGL
             swriter.Flush();
             swriter.Close();
         }
-        
+
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
-            //createProjectDatabase();
             isModified = !(checkMCDcoherence() && checkClassDiagramCoherence());
-            //isModified = false;
+            //FIXME afficher information sur les info manquantes
         }
 
         private static void createProjectDatabase()
@@ -187,14 +210,12 @@ namespace AGL
 
         public static void mcdModificationCheck()
         {
-            //FIXME minuscule
-            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\dao"))
             {
                 if (checkMCDcoherence() == false)
                 {
                     //DAO are deleted
-                    //FIXME minuscule
-                    Directory.Delete(LoadProject.projectFolder + "\\src\\DAO", true);
+                    Directory.Delete(LoadProject.projectFolder + "\\src\\dao", true);
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.cfg.xml");
                     File.Delete(LoadProject.projectFolder + "\\src\\hibernate.reveng.xml");
 
@@ -204,9 +225,9 @@ namespace AGL
                 }
             }
         }
-            public static void mcdModificationCheckAux()
+        public static void mcdModificationCheckAux()
         {
-            System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO" );
+            System.Windows.Forms.MessageBox.Show("La base de donnée a été regénérée avec le script mcd.sql, Netbeans va maintenant s'ouvrir pour permettre la regeneration des DAO");
 
             Process netbeans = Process.Start(LoadProject.netbeansPath);
             netbeans.WaitForExit();
@@ -214,8 +235,7 @@ namespace AGL
 
         public static bool checkMCDcoherence()
         {
-            //FIXME minuscule
-            if (Directory.Exists(LoadProject.projectFolder + "\\src\\DAO"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\dao"))
             {
                 String mcdPath = LoadProject.projectFolder + "\\mcd.json";
                 StreamReader mcdReader = File.OpenText(mcdPath);
@@ -227,14 +247,12 @@ namespace AGL
                     String tableName = table[0].Value<string>();
                     //TODO check sur les attributs/méthodes
 
-                    //FIXME enlever le DAO.java du nom du fichier
-                    String file = LoadProject.projectFolder + "\\src\\DAO\\" + tableName + "DAO.java";
+                    String file = LoadProject.projectFolder + "\\src\\dao\\" + tableName + ".java";
 
                     if (File.Exists(file) == false)
                         return false;
                 }
             }
-
             return true;
         }
 
