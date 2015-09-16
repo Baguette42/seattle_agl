@@ -16,5 +16,11 @@ namespace AGL
             Process netbeans = Process.Start(LoadProject.netbeansPath);
             netbeans.WaitForExit();
         }
+
+        internal static void validatePasserelleC_Click(object sender, RoutedEventArgs e)
+        {
+            PasserelleB.checkMCDcoherence();
+            PasserelleB.checkClassDiagramCoherence();
+        }
     }
 }

@@ -38,11 +38,11 @@ namespace AGL
             checkClassDiagramFile();
             checkMCDFile();
 
-            if (Directory.Exists(LoadProject.projectFolder + "\\dao"))
+            if (Directory.Exists(LoadProject.projectFolder + "\\src\\dao"))
             {
-                generatedJavaFilePath.Content = LoadProject.projectFolder + "\\dao";
+                generatedJavaFilePath.Content = LoadProject.projectFolder + "\\src\\dao";
             }
-            generatedJavaFilePath2.Content = LoadProject.projectFolder;
+            generatedJavaFilePath2.Content = LoadProject.projectFolder + "\\src";
         }
 
         private void loadBesoins_Click(object sender, RoutedEventArgs e)
