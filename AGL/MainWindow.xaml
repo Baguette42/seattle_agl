@@ -51,7 +51,7 @@
                 </DockPanel>
 
             </TabItem>
-            <TabItem Header="Réalisation" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
+            <TabItem Header="Réalisation et tests" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
                 <DockPanel>
                     <DockPanel LastChildFill="False" VerticalAlignment="Top" DockPanel.Dock="Bottom" Margin="0,10,0,0" >
                         <Button Name="validatePasserelleC"  Content="Valider"  Margin="5" Click="validatePasserelleB_Click" DockPanel.Dock="Bottom" />
@@ -63,7 +63,7 @@
                             <Label Content="Java généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="generatedJavaFilePath" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
                         </DockPanel>
-                        <Button Name="loadGeneratedJavaButton2"  Content="Modifier le code métier"  HorizontalAlignment="Left" Margin="5" Click="loadgeneratedJava_Click" DockPanel.Dock="Top" Width="200"/>
+                        <Button Name="loadGeneratedJavaButton2"  Content="Modifier le code métier et générer les tests"  HorizontalAlignment="Left" Margin="5" Click="loadgeneratedJava_Click" DockPanel.Dock="Top" Width="250"/>
                         <DockPanel LastChildFill="False" VerticalAlignment="Top" HorizontalAlignment="Left" DockPanel.Dock="Top" >
                             <Label Content="Java généré :" VerticalAlignment="Center" Margin="0,0,0,0"/>
                             <Label Name="generatedJavaFilePath2" Content="Aucun dossier selectionné" VerticalAlignment="Center" Margin="0,0,0,0"/>
@@ -71,8 +71,6 @@
                     </DockPanel>
                 </DockPanel>
 
-            </TabItem>
-            <TabItem Header="Tests" HorizontalAlignment="Left" Height="20" VerticalAlignment="Top" Width="Auto">
             </TabItem>
         </TabControl>
         <Popup Name="STB_valid_popup"  VerticalOffset="20"  PlacementRectangle="300,140,100,150" PopupAnimation="Fade"  AllowsTransparency="True" Margin="300,100,100,10" Placement="Mouse"  IsOpen="False">

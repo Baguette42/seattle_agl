@@ -1,10 +1,10 @@
 ﻿<Window x:Class="AGL.LoadProject"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Selectionner ou créer un projet" Height="200" Width="300" WindowStartupLocation="CenterScreen">
+        Title="Selectionner un projet" Height="180" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" >
-            <Label Content="Selectionnez le dossier racine du projet existant ou &#x0a;à créer" HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Top" Width="280" VerticalAlignment="Center" />
+            <Label Content="Selectionnez le dossier racine du projet existant" HorizontalAlignment="Center" Margin="5" DockPanel.Dock="Top" Width="280" VerticalAlignment="Center" />
             <Button Name="loadProjectFolderButton"  Content="Selectionner le dossier du projet" HorizontalAlignment="Center" Margin="5" Click="loadProjectFolder_Click" DockPanel.Dock="Top" Width="200"/>
         <DockPanel LastChildFill="False" DockPanel.Dock="Top" >
             <Label Content="Dossier :" VerticalAlignment="Center" Margin="0,0,0,0"/>
