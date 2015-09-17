@@ -76,8 +76,9 @@ namespace AGL
                 if (msg.Length != 0)
                 {
                     System.Windows.Forms.MessageBox.Show(msg, "Important");
+                    return;
                 }
-
+                System.Windows.Forms.MessageBox.Show("Aucun problème détecté");
                 isModified = false;
             }
         }
@@ -116,8 +117,6 @@ namespace AGL
 
             if (result.Length != 0)
                 result += "Merci de corriger la(les) erreur(s) avant de continuer.";
-            else
-                result = "Aucun problème détecté.";
 
             excelReader.Close();
             usecaseReader.Close();
