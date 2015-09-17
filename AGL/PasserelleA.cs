@@ -151,9 +151,9 @@ namespace AGL
             while ((line = sreader.ReadLine()) != null)
             {
                 buffer += "[";
-                for (int i = 0; i < line.Split(',').Length; ++i)
+                for (int i = 0; i < line.Split(';').Length; ++i)
                 {
-                    buffer += "\"" + line.Split(',')[i] + "\",";
+                    buffer += "\"" + line.Split(';')[i] + "\",";
                 }
                 // Suppression du caractère , en trop
                 buffer = buffer.Substring(0, buffer.Length - 1);
