@@ -21,9 +21,16 @@ namespace AGL
 
         internal static void validatePasserelleC_Click(object sender, RoutedEventArgs e)
         {
-            PasserelleB.checkMCDcoherence();
-            PasserelleB.checkClassDiagramCoherence();
             isModified = false;
+            bool mcd = PasserelleB.checkMCDcoherence();
+            bool classDiagram = PasserelleB.checkClassDiagramCoherence();
+
+            if (false == mcd)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le mcd et les classes .java présentes dans le dossier généré");
+            else if (false == classDiagram)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
+            else
+                System.Windows.Forms.MessageBox.Show("Aucun problème détecté.");
         }
     }
 }

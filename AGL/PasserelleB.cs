@@ -23,6 +23,7 @@ namespace AGL
     public static class PasserelleB
     {
         public static bool isModified = false;
+        public static bool isFirstMCD = !Directory.Exists(LoadProject.projectFolder + "//src//dao");
 
         public static void loadXMI_Click(object sender, RoutedEventArgs e)
         {
@@ -161,9 +162,21 @@ namespace AGL
 
         public static void validatePasserelleB_Click(object sender, RoutedEventArgs e, String xmiPath)
         {
-            createProjectDatabase();
-            isModified = !(checkMCDcoherence() && checkClassDiagramCoherence());
-            //FIXME afficher information sur les info manquantes
+            if (isFirstMCD)
+            {
+                createProjectDatabase();
+                isFirstMCD = false;
+            }
+            bool mcd = checkMCDcoherence();
+            bool classDiagram = checkClassDiagramCoherence();
+            isModified = !(mcd && classDiagram);
+
+            if (false == mcd)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le mcd et les classes .java présentes dans le dossier généré");
+            else if (false == classDiagram)
+                System.Windows.Forms.MessageBox.Show("Une modification a engendré une incohérence entre le diagramme de classes et les classes .java présentes dans le dossier source");
+            else
+                System.Windows.Forms.MessageBox.Show("Aucun problème détecté.");
         }
 
         private static void createProjectDatabase()

@@ -63,11 +63,11 @@ namespace AGL
         {
             if (File.Exists(LoadProject.projectFolder + "\\besoins.json") == false)
             {
-                System.Windows.Forms.MessageBox.Show("Le fichier \"besoins.json\" est manquant");
+                System.Windows.Forms.MessageBox.Show("Le fichier \"besoins.json\" est manquant. Merci de répertorier les besoins.");
             }
             else if (File.Exists(LoadProject.projectFolder + "\\usecase.json") == false)
             {
-                System.Windows.Forms.MessageBox.Show("Le fichier \"usecase.json\" est manquant");
+                System.Windows.Forms.MessageBox.Show("Le fichier \"usecase.json\" est manquant. Merci de créer les use cases");
 
             }
             else
@@ -117,6 +117,8 @@ namespace AGL
 
             if (result.Length != 0)
                 result += "Merci de corriger la(les) erreur(s) avant de continuer.";
+            else
+                result = "Aucun problème détecté.";
 
             excelReader.Close();
             usecaseReader.Close();
